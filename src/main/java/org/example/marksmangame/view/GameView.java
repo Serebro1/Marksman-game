@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import org.example.marksmangame.model.Arrow;
 import org.example.marksmangame.model.Target;
 
 import java.util.HashMap;
