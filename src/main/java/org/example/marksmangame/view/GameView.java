@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameView {
-
+    private final double width, height;
     private final BorderPane root = new BorderPane();
     private final Pane gamePane = new Pane();
     private final Pane objectsLayer = new Pane();
@@ -30,10 +30,12 @@ public class GameView {
 
     public GameView() {
 
-        double width = 1000;
-        double height = 600;
+        width = 1000;
+        height = 600;
 
         gamePane.setPrefSize(width, height);
+        // game objects layer
+        gamePane.getChildren().add(objectsLayer);
 
         // Player
         PlayerView playerView = new PlayerView(height);
@@ -48,27 +50,28 @@ public class GameView {
 
         gamePane.getChildren().addAll(guideNear, guideFar);
 
-        // game objects layer
-        gamePane.getChildren().add(objectsLayer);
+        createScoreShotsPanel();
+        createControlPanel();
+        createObservers();
 
-        // statistics observers
-        engine.getPlayer().addScoreObserver(
-                score -> Platform.runLater(() ->
-                        scoreLabel.setText("Score: " + score))
-        );
+        root.setCenter(gamePane);
+    }
 
-        engine.getPlayer().addShotsObserver(
-                shots -> Platform.runLater(() ->
-                        shotsLabel.setText("Shots: " + shots))
-        );
+    private void createScoreShotsPanel() {
+        VBox statsBox = new VBox(10, scoreLabel, shotsLabel);
+        statsBox.setAlignment(Pos.CENTER_RIGHT);
+        statsBox.setStyle("""
+                -fx-background-color: white;
+                -fx-padding: 10;
+                -fx-border-color: black;
+                """);
+        statsBox.setLayoutX(900);
+        statsBox.setLayoutY(500);
 
-        // arrow observers
-        engine.addArrowCreatedObserver(arrow ->
-                Platform.runLater(() -> createArrowView(arrow)));
+        gamePane.getChildren().add(statsBox);
+    }
 
-        engine.addArrowDestroyedObserver(() ->
-                Platform.runLater(this::removeArrowView));
-
+    private void createControlPanel() {
         // Buttons
         Button start = new Button("Start");
         Button stop = new Button("Stop");
@@ -87,18 +90,6 @@ public class GameView {
         controlsBox.setLayoutY(555);
 
         gamePane.getChildren().add(controlsBox);
-
-        VBox statsBox = new VBox(10, scoreLabel, shotsLabel);
-        statsBox.setAlignment(Pos.CENTER_RIGHT);
-        statsBox.setStyle("""
-                -fx-background-color: white;
-                -fx-padding: 10;
-                -fx-border-color: black;
-                """);
-        statsBox.setLayoutX(900);
-        statsBox.setLayoutY(500);
-
-        gamePane.getChildren().add(statsBox);
 
         // actions on buttons
         start.setOnAction(e -> {
@@ -120,8 +111,26 @@ public class GameView {
         resume.setOnAction(e -> engine.resume());
 
         shoot.setOnAction(e -> engine.shoot());
+    }
 
-        root.setCenter(gamePane);
+    private void createObservers() {
+        // statistics observers
+        engine.getPlayer().addScoreObserver(
+                score -> Platform.runLater(() ->
+                        scoreLabel.setText("Score: " + score))
+        );
+
+        engine.getPlayer().addShotsObserver(
+                shots -> Platform.runLater(() ->
+                        shotsLabel.setText("Shots: " + shots))
+        );
+
+        // arrow observers
+        engine.addArrowCreatedObserver(arrow ->
+                Platform.runLater(() -> createArrowView(arrow)));
+
+        engine.addArrowDestroyedObserver(() ->
+                Platform.runLater(this::removeArrowView));
     }
 
     private void createTargetViews() {

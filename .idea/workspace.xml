@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="Arrow center is on ArrowView head" />
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/GameView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,18 +31,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Serebro1"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Serebro1&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Serebro1/Marksman-game.git",
-    "accountId": "071521b8-f4a4-435b-8d4e-281b00b63ead"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Serebro1/Marksman-game.git&quot;,
+    &quot;accountId&quot;: &quot;071521b8-f4a4-435b-8d4e-281b00b63ead&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -65,7 +68,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/params-objects",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
@@ -146,6 +149,17 @@
     <option name="localTasksCounter" value="8" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialize project" />
     <MESSAGE value="Model implementation" />
@@ -154,6 +168,8 @@
     <MESSAGE value="View implementation (add player)" />
     <MESSAGE value="Game version v1.0" />
     <MESSAGE value="Arrow center is on ArrowView head" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arrow center is on ArrowView head" />
+    <MESSAGE value="Game version v1.1" />
+    <MESSAGE value="add param speed in constructor" />
+    <option name="LAST_COMMIT_MESSAGE" value="add param speed in constructor" />
   </component>
 </project>
