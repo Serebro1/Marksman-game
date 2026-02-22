@@ -6,17 +6,19 @@ import java.util.List;
 public class Arrow {
     private double x;
     private double y;
+    private double speed;
     private boolean active = true;
 
     private final List<PositionIObserver> positionObservers = new ArrayList<>();
 
-    public Arrow(double x, double y) {
+    public Arrow(double x, double y, double speed) {
         this.x = x;
         this.y = y;
+        this.speed = speed;
     }
 
     public void move(double width) {
-        x += 8;
+        x += speed;
         notifyPosition();
 
         if (x > width) {
@@ -42,4 +44,5 @@ public class Arrow {
 
     public double getX() { return x; }
     public double getY() { return y; }
+    public double getSpeed() { return speed; }
 }

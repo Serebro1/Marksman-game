@@ -21,8 +21,8 @@ public class Engine {
         targets.clear();
         arrow = null;
 
-        targets.add(new Target(TargetType.NEAR, 700, 0));
-        targets.add(new Target(TargetType.FAR, 850, 0));
+        targets.add(new Target(TargetType.NEAR, 700, 300));
+        targets.add(new Target(TargetType.FAR, 850, 300));
 
         state = GameState.RUNNING;
     }
@@ -45,7 +45,7 @@ public class Engine {
         if (state != GameState.RUNNING || arrow != null) return;
 
         player.addShot();
-        arrow = new Arrow(150, 300);
+        arrow = new Arrow(150, 300, 8);
 
         createdObservers.forEach(o -> o.onArrowCreated(arrow));
     }

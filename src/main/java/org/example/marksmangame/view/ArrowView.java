@@ -6,6 +6,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
 public class ArrowView extends Group {
+    private double OFFSET_X = 31;
+
     public ArrowView() {
         Line shaft = new Line(0, 0, 50, 0);
         shaft.setStrokeWidth(4);
@@ -22,7 +24,7 @@ public class ArrowView extends Group {
     }
 
     public void setPosition(double x, double y) {
-        setLayoutX(x);
+        setLayoutX(x - OFFSET_X);
         setLayoutY(y);
     }
 }
