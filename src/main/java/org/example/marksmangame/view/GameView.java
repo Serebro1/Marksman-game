@@ -106,9 +106,18 @@ public class GameView {
             loop.start();
         });
 
-        stop.setOnAction(e -> engine.stop());
-        pause.setOnAction(e -> engine.pause());
-        resume.setOnAction(e -> engine.resume());
+        stop.setOnAction(e -> {
+            engine.stop();
+            if (loop != null) loop.stopLoop();
+        });
+        pause.setOnAction(e -> {
+            engine.pause();
+            if (loop != null) loop.pauseLoop();
+        });
+        resume.setOnAction(e -> {
+            engine.resume();
+            if (loop != null) loop.resumeLoop();
+        });
 
         shoot.setOnAction(e -> engine.shoot());
     }

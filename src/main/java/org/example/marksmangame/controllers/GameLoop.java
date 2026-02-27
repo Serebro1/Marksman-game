@@ -3,7 +3,8 @@ package org.example.marksmangame.controllers;
 public class GameLoop extends Thread {
     private final Engine engine;
     private final double width, height;
-    private boolean running = true;
+    private final Object pauseLock = new Object();
+    private boolean paused = false;
 
     public GameLoop(Engine engine, double width, double height) {
         this.engine = engine;
@@ -11,20 +12,36 @@ public class GameLoop extends Thread {
         this.height = height;
     }
 
-    public void stopLoop() {
-        running = false;
-    }
-
     @Override
     public void run() {
-        while (running) {
-            engine.update(width, height);
-
-            try {
+        try {
+            while (!isInterrupted()) {
+                synchronized (pauseLock) {
+                    while (paused) {
+                        pauseLock.wait();
+                    }
+                }
+                engine.update(width, height);
                 Thread.sleep(16); // ~60 FPS
-            } catch (InterruptedException e) {
-                interrupt();
             }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void stopLoop() {
+        interrupt();
+        resumeLoop();
+    }
+
+    public void pauseLoop() {
+        paused = true;
+    }
+
+    public void resumeLoop() {
+        synchronized (pauseLock) {
+            paused = false;
+            pauseLock.notify();
         }
     }
 }

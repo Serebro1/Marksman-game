@@ -81,7 +81,6 @@ public class Engine {
     public void addArrowCreatedObserver(ArrowCreatedIObserver o) {
         createdObservers.add(o);
     }
-
     public void addArrowDestroyedObserver(ArrowDestroyedIObserver o) {
         destroyedObservers.add(o);
     }
