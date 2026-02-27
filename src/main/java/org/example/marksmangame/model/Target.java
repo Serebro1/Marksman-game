@@ -18,11 +18,11 @@ public class Target {
 
         if (type == TargetType.NEAR) {
             radius = 40;
-            speed = 2;
+            speed = 1;
             points = 1;
         } else {
             radius = 20;
-            speed = 4;
+            speed = 2;
             points = 2;
         }
     }

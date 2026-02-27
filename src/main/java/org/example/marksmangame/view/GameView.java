@@ -1,7 +1,7 @@
 package org.example.marksmangame.view;
 
+import javafx.animation.AnimationTimer;
 import org.example.marksmangame.controllers.Engine;
-import org.example.marksmangame.controllers.GameLoop;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -20,7 +20,8 @@ public class GameView {
     private final Pane objectsLayer = new Pane();
 
     private final Engine engine = new Engine();
-    private GameLoop loop;
+
+    private AnimationTimer timer;
 
     private final Label scoreLabel = new Label("Score: 0");
     private final Label shotsLabel = new Label("Shots: 0");
@@ -55,6 +56,18 @@ public class GameView {
         createObservers();
 
         root.setCenter(gamePane);
+        initTimer();
+    }
+
+    private void initTimer() {
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (!engine.isPaused()) {
+                    engine.update(width, height);
+                }
+            }
+        };
     }
 
     private void createScoreShotsPanel() {
@@ -100,23 +113,18 @@ public class GameView {
             arrowView = null;
 
             createTargetViews();
-
-            if (loop != null) loop.stopLoop();
-            loop = new GameLoop(engine, width, height);
-            loop.start();
+            timer.start();
         });
 
         stop.setOnAction(e -> {
             engine.stop();
-            if (loop != null) loop.stopLoop();
+            timer.stop();
         });
         pause.setOnAction(e -> {
             engine.pause();
-            if (loop != null) loop.pauseLoop();
         });
         resume.setOnAction(e -> {
             engine.resume();
-            if (loop != null) loop.resumeLoop();
         });
 
         shoot.setOnAction(e -> engine.shoot());

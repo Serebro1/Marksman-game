@@ -45,7 +45,7 @@ public class Engine {
         if (state != GameState.RUNNING || arrow != null) return;
 
         player.addShot();
-        arrow = new Arrow(150, 300, 8);
+        arrow = new Arrow(150, 300, 4);
 
         createdObservers.forEach(o -> o.onArrowCreated(arrow));
     }
@@ -59,9 +59,7 @@ public class Engine {
             arrow.move(width);
 
             for (Target t : targets) {
-                if (arrow.isActive() &&
-                        Math.abs(arrow.getX() - t.getX()) < t.getRadius() &&
-                        Math.abs(arrow.getY() - t.getY()) < t.getRadius()) {
+                if (arrow.isActive() && isHit(arrow, t)) {
 
                     player.addScore(t.getPoints());
                     arrow.deactivate();
@@ -75,8 +73,16 @@ public class Engine {
         }
     }
 
+    private boolean isHit(Arrow a, Target t) {
+        return Math.abs(a.getX() - t.getX()) < t.getRadius() &&
+                Math.abs(a.getY() - t.getY()) < t.getRadius();
+    }
+
     public Player getPlayer() { return player; }
     public List<Target> getTargets() { return targets; }
+
+    public boolean isPaused() { return state == GameState.PAUSED; }
+    public boolean isRunning() { return state == GameState.RUNNING; }
 
     public void addArrowCreatedObserver(ArrowCreatedIObserver o) {
         createdObservers.add(o);
