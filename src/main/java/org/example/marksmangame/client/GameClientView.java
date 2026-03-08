@@ -165,15 +165,15 @@ public class GameClientView {
 
     public void updateState(GameStateDTO state) {
         playersListView.getItems().clear();
-        for (PlayerDTO p : state.getPlayers()) {
-            String line = p.getName() + "  Score:" + p.getScore() + " Shots:" + p.getShots() +
-                    (p.isReady() ? " [READY]" : "");
+        for (PlayerDTO p : state.players()) {
+            String line = p.name() + "  Score:" + p.score() + " Shots:" + p.shots() +
+                    (p.ready() ? " [READY]" : "");
             playersListView.getItems().add(line);
         }
 
         Set<Integer> currentIndices = new HashSet<>();
-        for (PlayerDTO p : state.getPlayers()) {
-            int idx = p.getId();
+        for (PlayerDTO p : state.players()) {
+            int idx = p.id();
             currentIndices.add(idx);
             if (!playerViews.containsKey(idx)) {
                 PlayerView view = new PlayerView(PLAYER_COLORS[idx % PLAYER_COLORS.length]);
@@ -192,16 +192,16 @@ public class GameClientView {
         });
 
         Set<Integer> currentTargetIds = new HashSet<>();
-        for (TargetDTO t : state.getTargets()) {
-            currentTargetIds.add(t.getId());
-            TargetView view = targetViews.get(t.getId());
+        for (TargetDTO t : state.targets()) {
+            currentTargetIds.add(t.id());
+            TargetView view = targetViews.get(t.id());
             if (view == null) {
-                view = new TargetView(t.getRadius());
-                view.setPosition(t.getX(), t.getY());
+                view = new TargetView(t.radius());
+                view.setPosition(t.x(), t.y());
                 objectsLayer.getChildren().add(view);
-                targetViews.put(t.getId(), view);
+                targetViews.put(t.id(), view);
             } else {
-                view.setPosition(t.getX(), t.getY());
+                view.setPosition(t.x(), t.y());
             }
         }
         targetViews.keySet().removeIf(id -> {
@@ -214,18 +214,18 @@ public class GameClientView {
 
 
         Set<Integer> currentArrowKeys = new HashSet<>();
-        for (ArrowDTO a : state.getArrows()) {
-            if (!a.isActive()) continue;
-            int ownerIdx = a.getPlayerId();
+        for (ArrowDTO a : state.arrows()) {
+            if (!a.active()) continue;
+            int ownerIdx = a.playerId();
             currentArrowKeys.add(ownerIdx);
             ArrowView view = arrowViews.get(ownerIdx);
             if (view == null) {
                 view = new ArrowView(PLAYER_COLORS[ownerIdx % PLAYER_COLORS.length]);
-                view.setPosition(a.getX(), a.getY());
+                view.setPosition(a.x(), a.y());
                 objectsLayer.getChildren().add(view);
                 arrowViews.put(ownerIdx, view);
             } else {
-                view.setPosition(a.getX(), a.getY());
+                view.setPosition(a.x(), a.y());
             }
         }
         arrowViews.keySet().removeIf(key -> {
@@ -237,9 +237,9 @@ public class GameClientView {
         });
 
 
-        String statusText = "Status: " + state.getState();
-        if (state.getWinnerName() != null) {
-            statusText += "  Winner: " + state.getWinnerName();
+        String statusText = "Status: " + state.state();
+        if (state.winnerName() != null) {
+            statusText += "  Winner: " + state.winnerName();
         }
         statusLabel.setText(statusText);
     }

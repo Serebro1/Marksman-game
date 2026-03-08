@@ -36,9 +36,9 @@ public class ClientHandler extends Thread {
                 CommandDTO command = (CommandDTO) in.readObject();
                 Engine engine = server.getEngine();
 
-                switch (command.getType()) {
+                switch (command.type()) {
                     case CONNECT:
-                        String name = command.getPlayerName();
+                        String name = command.playerName();
                         synchronized (engine) {
                             if (engine.getState() != GameState.WAITING ||
                                     engine.getPlayers().stream().anyMatch(p -> p.getName().equals(name))) {

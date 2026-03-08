@@ -22,8 +22,8 @@ public class GameClient {
         this.playerName = playerName;
         this.view = view;
         socket = new Socket(serverAddress, port);
-        in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
     }
 
     public void start() {
