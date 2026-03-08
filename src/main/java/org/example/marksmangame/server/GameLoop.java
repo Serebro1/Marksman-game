@@ -1,5 +1,6 @@
 package org.example.marksmangame.server;
 
+import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.dto.GameStateDTO;
 
 public class GameLoop extends Thread {
@@ -41,7 +42,9 @@ public class GameLoop extends Thread {
                 }
             }
             if (!running) break;
-            engine.update();
+            if (engine.getState() == GameState.RUNNING) {
+                engine.update();
+            }
             GameStateDTO state = engine.getCurrentState();
             server.broadcast(state);
             try {
