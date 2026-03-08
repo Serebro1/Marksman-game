@@ -16,13 +16,14 @@ public class GameClient {
     private ObjectInputStream in;
     private final String playerName;
     private final GameClientView view;
+    private volatile GameStateDTO lastState;
 
     public GameClient(String serverAddress, int port, String playerName, GameClientView view) throws IOException {
         this.playerName = playerName;
         this.view = view;
         socket = new Socket(serverAddress, port);
-        out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
+        out = new ObjectOutputStream(socket.getOutputStream());
     }
 
     public void start() {
@@ -31,8 +32,7 @@ public class GameClient {
                 while (true) {
                     Object obj = in.readObject();
                     if (obj instanceof GameStateDTO) {
-                        GameStateDTO state = (GameStateDTO) obj;
-                        Platform.runLater(() -> view.updateState(state));
+                        lastState = (GameStateDTO) obj;
                     } else if (obj == null) {
                         Platform.runLater(() -> view.connectionRefused("Name already taken or server not waiting"));
                         break;
@@ -59,5 +59,9 @@ public class GameClient {
     public void disconnect() {
         sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
         try { socket.close(); } catch (IOException e) {}
+    }
+
+    public GameStateDTO getLastState() {
+        return lastState;
     }
 }

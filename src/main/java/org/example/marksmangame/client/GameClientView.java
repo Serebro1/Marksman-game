@@ -1,5 +1,6 @@
 package org.example.marksmangame.client;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -36,6 +37,7 @@ public class GameClientView {
 
     private GameClient client;
     private String playerName;
+    private AnimationTimer animationTimer;
 
     private final Map<Integer, TargetView> targetViews = new HashMap<>();
     private final Map<Integer, ArrowView> arrowViews = new HashMap<>();
@@ -65,15 +67,21 @@ public class GameClientView {
         gamePane.getChildren().addAll(zone, guideNear, guideFar);
 
         // панель управления
-        VBox controlBox = new VBox(10,
+        HBox controlBox = new HBox(10, readyButton, pauseButton, resumeButton, shootButton, stopButton, disconnectButton);
+        controlBox.setLayoutX(150);
+        controlBox.setLayoutY(555);
+        controlBox.setStyle("-fx-background-color: lightgray; -fx-padding: 10; -fx-border-color: black;");
+        gamePane.getChildren().add(controlBox);
+
+        VBox rightPanel = new VBox(10,
                 new HBox(10, new Label("Name:"), nameField, connectButton),
-                new HBox(10, readyButton, pauseButton, resumeButton, shootButton, stopButton, disconnectButton),
                 statusLabel,
                 new Label("Players:"), playersListView
         );
-        controlBox.setStyle("-fx-padding: 10; -fx-background-color: lightgray;");
-        controlBox.setPrefWidth(400);
-        root.setRight(controlBox);
+        rightPanel.setStyle("-fx-padding: 10; -fx-background-color: lightgray;");
+        rightPanel.setPrefWidth(300);
+        root.setRight(rightPanel);
+
         root.setCenter(gamePane);
 
         connectButton.setOnAction(e -> connect());
@@ -87,27 +95,10 @@ public class GameClientView {
         setControlsDisabled(true);
     }
 
-    private void disconnect() {
-        if (client != null) {
-            client.disconnect();
-            client = null;
-        }
-        connectButton.setDisable(false);
-        nameField.setDisable(false);
-        setControlsDisabled(true);
-        playersListView.getItems().clear();
-        statusLabel.setText("Status: Disconnected");
-        objectsLayer.getChildren().clear();
-        targetViews.clear();
-        arrowViews.clear();
-
-        gamePane.getChildren().removeAll(playerViews.values());
-        playerViews.clear();
-    }
-
     private void setControlsDisabled(boolean disabled) {
         readyButton.setDisable(disabled);
         pauseButton.setDisable(disabled);
+        resumeButton.setDisable(disabled);
         stopButton.setDisable(disabled);
         shootButton.setDisable(disabled);
     }
@@ -124,9 +115,46 @@ public class GameClientView {
             nameField.setDisable(true);
             statusLabel.setText("Status: Connected");
             setControlsDisabled(false);
+            startAnimation();
         } catch (Exception e) {
             statusLabel.setText("Status: Connection failed");
+            e.printStackTrace();
         }
+    }
+
+    private void startAnimation() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                GameStateDTO state = client.getLastState();
+                if (state != null) {
+                    updateState(state);
+                }
+            }
+        };
+        animationTimer.start();
+    }
+
+    private void disconnect() {
+        if (animationTimer != null) {
+            animationTimer.stop();
+            animationTimer = null;
+        }
+        if (client != null) {
+            client.disconnect();
+            client = null;
+        }
+        connectButton.setDisable(false);
+        nameField.setDisable(false);
+        setControlsDisabled(true);
+        playersListView.getItems().clear();
+        statusLabel.setText("Status: Disconnected");
+        objectsLayer.getChildren().clear();
+        targetViews.clear();
+        arrowViews.clear();
+
+        gamePane.getChildren().removeAll(playerViews.values());
+        playerViews.clear();
     }
 
     private void sendCommand(CommandType type) {
@@ -184,7 +212,7 @@ public class GameClientView {
             return false;
         });
 
-        // стрелы
+
         Set<Integer> currentArrowKeys = new HashSet<>();
         for (ArrowDTO a : state.getArrows()) {
             if (!a.isActive()) continue;
@@ -208,9 +236,12 @@ public class GameClientView {
             return false;
         });
 
-        // статус
-        statusLabel.setText("Status: " + state.getState() +
-                (state.getWinnerName() != null ? "  Winner: " + state.getWinnerName() : ""));
+
+        String statusText = "Status: " + state.getState();
+        if (state.getWinnerName() != null) {
+            statusText += "  Winner: " + state.getWinnerName();
+        }
+        statusLabel.setText(statusText);
     }
 
     public void connectionRefused(String message) {

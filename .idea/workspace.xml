@@ -4,32 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="Game version v1.1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ClientMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ServerMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/ArrowDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/PlayerDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/TargetDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" afterDir="false" />
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="Game Version v2.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/controllers/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/controllers/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/controllers/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/ArrowView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/view/ArrowView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/GameView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/PlayerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/view/PlayerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/view/TargetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/view/TargetView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/ArrowCreatedIObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/ArrowDestroyedIObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/PositionIObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/ScoreIObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/ShotsIObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771756204376</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Game Version v2.0">
+      <option name="closed" value="true" />
+      <created>1772980655418</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1772980655419</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,6 +225,7 @@
     <MESSAGE value="Arrow center is on ArrowView head" />
     <MESSAGE value="add param speed in constructor" />
     <MESSAGE value="Game version v1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Game version v1.1" />
+    <MESSAGE value="Game Version v2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game Version v2.0" />
   </component>
 </project>
