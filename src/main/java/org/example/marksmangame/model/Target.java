@@ -1,16 +1,10 @@
 package org.example.marksmangame.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Target {
-    private double x;
-    private double y;
+    private double x, y;
     private final double radius;
     private final double speed;
     private final int points;
-
-    private final List<PositionIObserver> observers = new ArrayList<>();
 
     public Target(TargetType type, double x, double y) {
         this.x = x;
@@ -30,19 +24,21 @@ public class Target {
     public void move(double height) {
         y += speed;
         if (y > height) y = 0;
-        notifyPosition();
     }
 
-    public void addPositionObserver(PositionIObserver o) {
-        observers.add(o);
+    public double getX() {
+        return x;
     }
 
-    private void notifyPosition() {
-        observers.forEach(o -> o.onPositionChanged(x, y));
+    public double getY() {
+        return y;
     }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
-    public double getRadius() { return radius; }
-    public int getPoints() { return points; }
+    public double getRadius() {
+        return radius;
+    }
+
+    public int getPoints() {
+        return points;
+    }
 }

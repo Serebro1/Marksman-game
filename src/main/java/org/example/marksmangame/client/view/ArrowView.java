@@ -1,4 +1,4 @@
-package org.example.marksmangame.view;
+package org.example.marksmangame.client.view;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -8,7 +8,7 @@ import javafx.scene.shape.Polygon;
 public class ArrowView extends Group {
     private double OFFSET_X = 31;
 
-    public ArrowView() {
+    public ArrowView(Color color) {
         Line shaft = new Line(0, 0, 50, 0);
         shaft.setStrokeWidth(4);
         shaft.setStroke(Color.SADDLEBROWN);
@@ -18,7 +18,7 @@ public class ArrowView extends Group {
                 65, 0,
                 50, 6
         );
-        head.setFill(Color.DARKGRAY);
+        head.setFill(color);
 
         getChildren().addAll(shaft, head);
     }

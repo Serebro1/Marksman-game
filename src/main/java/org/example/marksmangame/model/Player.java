@@ -1,41 +1,49 @@
 package org.example.marksmangame.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player {
+    private String name;
+    private int score;
+    private int shots;
+    private boolean ready;
 
-    private int score, shots;
-    private final List<ScoreIObserver> scoreIObserverList = new ArrayList<>();
-    private final List<ShotsIObserver> shotsIObserverList = new ArrayList<>();
-
-    public void reset() {
-        score = 0;
-        shots = 0;
-        notifyScore();
-        notifyShots();
+    public Player(String name) {
+        this.name = name;
+        this.score = 0;
+        this.shots = 0;
+        this.ready = false;
     }
 
-    public void addScore(int value) {
-        score += value;
-        notifyScore();
+    public String getName() {
+        return name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getShots() {
+        return shots;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
+    public void addScore(int points) {
+        score += points;
     }
 
     public void addShot() {
         shots++;
-        notifyShots();
     }
 
-    public void addScoreObserver(ScoreIObserver o) {
-        scoreIObserverList.add(o);
-    }
-    public void addShotsObserver(ShotsIObserver o) {
-        shotsIObserverList.add(o);
-    }
-    private void notifyScore() {
-        scoreIObserverList.forEach(o -> o.onScoreChanged(score));
-    }
-    private void notifyShots() {
-        shotsIObserverList.forEach(o -> o.onShotsChanged(shots));
+    public void reset() {
+        this.score = 0;
+        this.shots = 0;
+        this.ready = false;
     }
 }
