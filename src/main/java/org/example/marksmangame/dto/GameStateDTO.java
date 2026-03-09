@@ -8,6 +8,7 @@ public record GameStateDTO(
         List<ArrowDTO> arrows,
         List<PlayerDTO> players,
         GameState state,
+        String pausedBy,
         String winnerName
 ) implements Serializable {
     private static final long serialVersionUID = 1L;

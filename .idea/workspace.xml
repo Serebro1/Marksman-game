@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="Game Version v2.0">
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="using record for DTO structs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Arrow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/TargetType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/TargetType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +205,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772980655419</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix bug view">
+      <option name="closed" value="true" />
+      <created>1773002603171</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1773002603171</updated>
+    </task>
+    <task id="LOCAL-00011" summary="using record for DTO structs">
+      <option name="closed" value="true" />
+      <created>1773004818001</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1773004818001</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -219,6 +246,8 @@
     <MESSAGE value="add param speed in constructor" />
     <MESSAGE value="Game version v1.1" />
     <MESSAGE value="Game Version v2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Game Version v2.0" />
+    <MESSAGE value="fix bug view" />
+    <MESSAGE value="using record for DTO structs" />
+    <option name="LAST_COMMIT_MESSAGE" value="using record for DTO structs" />
   </component>
 </project>

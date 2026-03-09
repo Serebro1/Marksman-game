@@ -44,6 +44,5 @@ public class Player {
     public void reset() {
         this.score = 0;
         this.shots = 0;
-        this.ready = false;
     }
 }

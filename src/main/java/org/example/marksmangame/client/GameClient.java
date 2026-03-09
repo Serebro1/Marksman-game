@@ -39,7 +39,9 @@ public class GameClient {
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                Platform.runLater(() ->
+                        view.connectionRefused("Connection lost")
+                );
             } finally {
                 try { socket.close(); } catch (IOException e) {}
             }
@@ -57,8 +59,14 @@ public class GameClient {
     }
 
     public void disconnect() {
-        sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
-        try { socket.close(); } catch (IOException e) {}
+        try {
+            sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
+
+            if (out != null) out.close();
+            if (in != null) in.close();
+            if (socket != null && !socket.isClosed()) socket.close();
+
+        } catch (IOException ignored) {}
     }
 
     public GameStateDTO getLastState() {

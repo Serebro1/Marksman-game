@@ -2,7 +2,7 @@ package org.example.marksmangame.model;
 
 public class Arrow {
     private double x, y;
-    private double speed;
+re    private final double speed;
     private boolean active = true;
     private final Player owner;
 
@@ -11,34 +11,16 @@ public class Arrow {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.active = true;
     }
 
     public void move(double width) {
         x += speed;
-
-        if (x > width) {
-            active = false;
-        }
+        if (x > width) { active = false; }
     }
 
-    public void deactivate() {
-        active = false;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Player getOwner() {
-        return owner;
-    }
+    public void deactivate() { active = false; }
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public boolean isActive() { return active; }
+    public Player getOwner() { return owner; }
 }

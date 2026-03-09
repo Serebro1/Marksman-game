@@ -1,6 +1,7 @@
 package org.example.marksmangame.client;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,19 +18,19 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameClientView {
+    private final double WIDTH = 2000;
+    private final double HEIGHT = 600;
+    private static final Color[] PLAYER_COLORS = {Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE};
+    private static final double[] PLAYER_Y = {200, 300, 400, 500};
+
     private final BorderPane root = new BorderPane();
     private final Pane gamePane = new Pane();
     private final Pane objectsLayer = new Pane();
-
-    private final double width = 1500;
-    private final double height = 600;
-
     private final ListView<String> playersListView = new ListView<>();
     private final Label statusLabel = new Label("Status: Disconnected");
     private final Button connectButton = new Button("Connect");
     private final Button readyButton = new Button("Ready");
     private final Button pauseButton = new Button("Pause");
-    private final Button resumeButton = new Button("Resume");
     private final Button stopButton = new Button("Stop");
     private final Button shootButton = new Button("Shoot");
     private final Button disconnectButton = new Button("Disconnect");
@@ -37,37 +38,31 @@ public class GameClientView {
 
     private GameClient client;
     private String playerName;
-    private AnimationTimer animationTimer;
+    private AnimationTimer timer;
 
     private final Map<Integer, TargetView> targetViews = new HashMap<>();
     private final Map<Integer, ArrowView> arrowViews = new HashMap<>();
     private final Map<Integer, PlayerView> playerViews = new HashMap<>();
-    private static final Color[] PLAYER_COLORS = {Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE};
-    private static final double[] PLAYER_Y = {200, 300, 400, 500};
 
-    public GameClientView() {
-        setupUI();
-    }
+
+    public GameClientView() { setupUI(); }
 
     private void setupUI() {
-        gamePane.setPrefSize(width, height);
+        gamePane.setPrefSize(WIDTH, HEIGHT);
         gamePane.getChildren().add(objectsLayer);
 
-        Rectangle zone = new Rectangle(150, height);
+        Rectangle zone = new Rectangle(150, HEIGHT);
         zone.setFill(Color.LIGHTYELLOW);
         zone.setStroke(Color.BLACK);
 
-        Line sep = new Line(150, 0, 150, height);
-        sep.setStrokeWidth(3);
-
-        Line guideNear = new Line(700, 0, 700, height);
+        Line guideNear = new Line(700, 0, 700, HEIGHT);
         guideNear.setStroke(Color.GRAY);
-        Line guideFar = new Line(850, 0, 850, height);
+        Line guideFar = new Line(850, 0, 850, HEIGHT);
         guideFar.setStroke(Color.GRAY);
         gamePane.getChildren().addAll(zone, guideNear, guideFar);
 
         // панель управления
-        HBox controlBox = new HBox(10, readyButton, pauseButton, resumeButton, shootButton, stopButton, disconnectButton);
+        HBox controlBox = new HBox(10, readyButton, pauseButton, shootButton, stopButton, disconnectButton);
         controlBox.setLayoutX(150);
         controlBox.setLayoutY(555);
         controlBox.setStyle("-fx-background-color: lightgray; -fx-padding: 10; -fx-border-color: black;");
@@ -80,14 +75,13 @@ public class GameClientView {
         );
         rightPanel.setStyle("-fx-padding: 10; -fx-background-color: lightgray;");
         rightPanel.setPrefWidth(300);
-        root.setRight(rightPanel);
 
+        root.setRight(rightPanel);
         root.setCenter(gamePane);
 
         connectButton.setOnAction(e -> connect());
         readyButton.setOnAction(e -> sendCommand(CommandType.READY));
         pauseButton.setOnAction(e -> sendCommand(CommandType.PAUSE));
-        resumeButton.setOnAction(e -> sendCommand(CommandType.RESUME));
         shootButton.setOnAction(e -> sendCommand(CommandType.SHOOT));
         stopButton.setOnAction(e -> sendCommand(CommandType.STOP));
         disconnectButton.setOnAction(e -> disconnect());
@@ -98,9 +92,9 @@ public class GameClientView {
     private void setControlsDisabled(boolean disabled) {
         readyButton.setDisable(disabled);
         pauseButton.setDisable(disabled);
-        resumeButton.setDisable(disabled);
         stopButton.setDisable(disabled);
         shootButton.setDisable(disabled);
+        disconnectButton.setDisable(disabled);
     }
 
     private void connect() {
@@ -123,32 +117,34 @@ public class GameClientView {
     }
 
     private void startAnimation() {
-        animationTimer = new AnimationTimer() {
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
+
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                GameStateDTO state = client.getLastState();
-                if (state != null) {
-                    updateState(state);
-                }
+                GameClient localClient = client;
+                if (localClient == null) return;
+
+                GameStateDTO state = localClient.getLastState();
+                if (state != null) { updateState(state); }
             }
         };
-        animationTimer.start();
+        timer.start();
     }
 
     private void disconnect() {
-        if (animationTimer != null) {
-            animationTimer.stop();
-            animationTimer = null;
-        }
-        if (client != null) {
-            client.disconnect();
-            client = null;
-        }
+        if (timer != null) { timer.stop(); timer = null; }
+        if (client != null) { client.disconnect(); client = null; }
+
         connectButton.setDisable(false);
         nameField.setDisable(false);
         setControlsDisabled(true);
         playersListView.getItems().clear();
         statusLabel.setText("Status: Disconnected");
+
         objectsLayer.getChildren().clear();
         targetViews.clear();
         arrowViews.clear();
@@ -158,90 +154,107 @@ public class GameClientView {
     }
 
     private void sendCommand(CommandType type) {
-        if (client != null) {
-            client.sendCommand(new CommandDTO(type, playerName));
-        }
+        if (client != null) { client.sendCommand(new CommandDTO(type, playerName)); }
     }
 
     public void updateState(GameStateDTO state) {
+        updatePlayersList(state);
+        updatePlayerViews(state);
+        updateTargets(state);
+        updateArrows(state);
+        updateStatus(state);
+    }
+
+    private void updatePlayersList(GameStateDTO state) {
         playersListView.getItems().clear();
+
         for (PlayerDTO p : state.players()) {
-            String line = p.name() + "  Score:" + p.score() + " Shots:" + p.shots() +
-                    (p.ready() ? " [READY]" : "");
+            String suffix = buildPlayerStatusSuffix(p, state);
+
+            String line = p.name()
+                    + "  Score:" + p.score()
+                    + " Shots:" + p.shots()
+                    + suffix;
+
             playersListView.getItems().add(line);
         }
+    }
+    private String buildPlayerStatusSuffix(PlayerDTO p, GameStateDTO state) {
+        if (state.state() == GameState.PAUSED && p.name().equals(state.pausedBy())) {
+            return " [PAUSED]";
+        }
+        if (p.ready()) { return " [READY]"; }
+        return "";
+    }
 
-        Set<Integer> currentIndices = new HashSet<>();
+    private void updatePlayerViews(GameStateDTO state) {
+        Set<Integer> currentIds = new HashSet<>();
         for (PlayerDTO p : state.players()) {
-            int idx = p.id();
-            currentIndices.add(idx);
-            if (!playerViews.containsKey(idx)) {
-                PlayerView view = new PlayerView(PLAYER_COLORS[idx % PLAYER_COLORS.length]);
-                view.setLayoutX(60); // смещение внутри левой зоны
-                view.setLayoutY(PLAYER_Y[idx % PLAYER_Y.length]);
+            int id = p.id();
+            currentIds.add(id);
+            if (!playerViews.containsKey(id)) {
+                PlayerView view = new PlayerView(PLAYER_COLORS[id % PLAYER_COLORS.length]);
+                view.setLayoutX(60);
+                view.setLayoutY(PLAYER_Y[id % PLAYER_Y.length]);
                 gamePane.getChildren().add(view);
-                playerViews.put(idx, view);
+                playerViews.put(id, view);
             }
         }
-        playerViews.keySet().removeIf(idx -> {
-            if (!currentIndices.contains(idx)) {
-                gamePane.getChildren().remove(playerViews.get(idx));
-                return true;
-            }
-            return false;
-        });
+        removeMissing(playerViews, currentIds, gamePane);
+    }
 
-        Set<Integer> currentTargetIds = new HashSet<>();
+    private void updateTargets(GameStateDTO state) {
+        Set<Integer> currentIds = new HashSet<>();
         for (TargetDTO t : state.targets()) {
-            currentTargetIds.add(t.id());
+            currentIds.add(t.id());
             TargetView view = targetViews.get(t.id());
             if (view == null) {
                 view = new TargetView(t.radius());
-                view.setPosition(t.x(), t.y());
                 objectsLayer.getChildren().add(view);
                 targetViews.put(t.id(), view);
-            } else {
-                view.setPosition(t.x(), t.y());
             }
+            view.setPosition(t.x(), t.y());
         }
-        targetViews.keySet().removeIf(id -> {
-            if (!currentTargetIds.contains(id)) {
-                objectsLayer.getChildren().remove(targetViews.get(id));
-                return true;
-            }
-            return false;
-        });
+        removeMissing(targetViews, currentIds, objectsLayer);
+    }
 
-
-        Set<Integer> currentArrowKeys = new HashSet<>();
+    private void updateArrows(GameStateDTO state) {
+        Set<Integer> currentKeys = new HashSet<>();
         for (ArrowDTO a : state.arrows()) {
             if (!a.active()) continue;
-            int ownerIdx = a.playerId();
-            currentArrowKeys.add(ownerIdx);
-            ArrowView view = arrowViews.get(ownerIdx);
+            int owner = a.playerId();
+            currentKeys.add(owner);
+            ArrowView view = arrowViews.get(owner);
             if (view == null) {
-                view = new ArrowView(PLAYER_COLORS[ownerIdx % PLAYER_COLORS.length]);
-                view.setPosition(a.x(), a.y());
+                view = new ArrowView(PLAYER_COLORS[owner % PLAYER_COLORS.length]);
                 objectsLayer.getChildren().add(view);
-                arrowViews.put(ownerIdx, view);
-            } else {
-                view.setPosition(a.x(), a.y());
+                arrowViews.put(owner, view);
             }
+            view.setPosition(a.x(), a.y());
         }
-        arrowViews.keySet().removeIf(key -> {
-            if (!currentArrowKeys.contains(key)) {
-                objectsLayer.getChildren().remove(arrowViews.get(key));
+        removeMissing(arrowViews, currentKeys, objectsLayer);
+    }
+
+    private <T extends Node> void removeMissing(
+            Map<Integer, T> views,
+            Set<Integer> activeIds,
+            Pane layer
+    ) {
+        views.keySet().removeIf(id -> {
+            if (!activeIds.contains(id)) {
+                layer.getChildren().remove(views.get(id));
                 return true;
             }
             return false;
         });
+    }
 
-
-        String statusText = "Status: " + state.state();
+    private void updateStatus(GameStateDTO state) {
+        String status = "Status: " + state.state();
         if (state.winnerName() != null) {
-            statusText += "  Winner: " + state.winnerName();
+            status += "  Winner: " + state.winnerName();
         }
-        statusLabel.setText(statusText);
+        statusLabel.setText(status);
     }
 
     public void connectionRefused(String message) {
@@ -252,4 +265,5 @@ public class GameClientView {
     }
 
     public BorderPane getRoot() { return root; }
+    public GameClient getClient() { return client; }
 }

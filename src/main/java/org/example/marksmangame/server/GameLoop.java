@@ -22,13 +22,8 @@ public class GameLoop extends Thread {
     public void resumeLoop() {
         synchronized (pauseLock) {
             paused = false;
-            pauseLock.notify();
+            pauseLock.notifyAll();
         }
-    }
-
-    public void stopLoop() {
-        running = false;
-        interrupt();
     }
 
     @Override
@@ -44,18 +39,12 @@ public class GameLoop extends Thread {
             if (!running) break;
             if (engine.getState() == GameState.RUNNING) {
                 engine.update();
+                GameStateDTO state = engine.getCurrentState();
+                server.broadcast(state);
             }
-            GameStateDTO state = engine.getCurrentState();
-            server.broadcast(state);
-            try {
-                Thread.sleep(16);
-            } catch (InterruptedException e) {
+            try { Thread.sleep(16); } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
     }
-
-
-
-
 }
