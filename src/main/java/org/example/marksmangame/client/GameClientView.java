@@ -79,12 +79,12 @@ public class GameClientView {
         root.setRight(rightPanel);
         root.setCenter(gamePane);
 
-        connectButton.setOnAction(e -> connect());
-        readyButton.setOnAction(e -> sendCommand(CommandType.READY));
-        pauseButton.setOnAction(e -> sendCommand(CommandType.PAUSE));
-        shootButton.setOnAction(e -> sendCommand(CommandType.SHOOT));
-        stopButton.setOnAction(e -> sendCommand(CommandType.STOP));
-        disconnectButton.setOnAction(e -> disconnect());
+        connectButton.setOnAction(_ -> connect());
+        readyButton.setOnAction(_ -> sendCommand(CommandType.READY));
+        pauseButton.setOnAction(_ -> sendCommand(CommandType.PAUSE));
+        shootButton.setOnAction(_ -> sendCommand(CommandType.SHOOT));
+        stopButton.setOnAction(_ -> sendCommand(CommandType.STOP));
+        disconnectButton.setOnAction(_ -> disconnect());
 
         setControlsDisabled(true);
     }

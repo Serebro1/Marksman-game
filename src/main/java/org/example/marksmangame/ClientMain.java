@@ -15,7 +15,7 @@ public class ClientMain extends Application {
         primaryStage.setTitle("Marksman Game Client");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> {
+        primaryStage.setOnCloseRequest(_ -> {
             GameClient client = view.getClient();
             if (client != null) {
                 client.disconnect();

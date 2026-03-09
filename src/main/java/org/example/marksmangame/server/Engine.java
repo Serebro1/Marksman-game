@@ -4,8 +4,6 @@ import org.example.marksmangame.dto.*;
 import org.example.marksmangame.model.*;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 public class Engine {
     private static final double HEIGHT = 600;

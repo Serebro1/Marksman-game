@@ -11,7 +11,7 @@ public class Target {
     }
 
     public void move(double height) {
-        y += type.getSpeed();;
+        y += type.getSpeed();
         if (y > height) y = 0;
     }
 

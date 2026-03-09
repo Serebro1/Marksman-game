@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
 public class ClientHandler extends Thread {
     private final Socket socket;
@@ -60,7 +59,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void handleConnect(String name, Engine engine) throws IOException {
+    private void handleConnect(String name, Engine engine) {
         synchronized (engine) {
             if (engine.getState() != GameState.WAITING) {
                 sendState(null);

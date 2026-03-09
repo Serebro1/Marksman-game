@@ -11,9 +11,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class GameClient {
-    private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private final Socket socket;
+    private final ObjectOutputStream out;
+    private final ObjectInputStream in;
     private final String playerName;
     private final GameClientView view;
     private volatile GameStateDTO lastState;
