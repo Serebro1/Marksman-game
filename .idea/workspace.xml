@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="refactor">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" afterDir="false" />
-    </list>
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="GameVersion v2.2. Refactor code and improve multi-thread logic" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -231,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1773054450801</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="refactoring">
+      <option name="closed" value="true" />
+      <created>1773055452232</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1773055452232</updated>
+    </task>
+    <task id="LOCAL-00015" summary="GameVersion v2.2. Refactor code and improve multi-thread logic">
+      <option name="closed" value="true" />
+      <created>1773068667153</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1773068667153</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -260,6 +268,8 @@
     <MESSAGE value="using record for DTO structs" />
     <MESSAGE value="bug fixes and refactoring" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="GameVersion v2.2. Refactor code and improve multi-thread logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameVersion v2.2. Refactor code and improve multi-thread logic" />
   </component>
 </project>
