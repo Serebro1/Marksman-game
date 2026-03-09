@@ -2,7 +2,7 @@ package org.example.marksmangame.model;
 
 public class Arrow {
     private double x, y;
-re    private final double speed;
+    private final double speed;
     private boolean active = true;
     private final Player owner;
 
