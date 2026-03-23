@@ -1,5 +1,6 @@
 package org.example.marksmangame.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public record PlayerDTO(
@@ -9,5 +10,6 @@ public record PlayerDTO(
         int shots,
         boolean ready
 ) implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 }

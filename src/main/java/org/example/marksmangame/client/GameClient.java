@@ -7,8 +7,6 @@ import org.example.marksmangame.dto.GameStateDTO;
 import org.example.marksmangame.server.Connection;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class GameClient {

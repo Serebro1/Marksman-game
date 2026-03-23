@@ -2,15 +2,10 @@ package org.example.marksmangame.server;
 
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.CommandType;
-import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.dto.GameStateDTO;
-import org.example.marksmangame.model.Player;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private final Connection connection;

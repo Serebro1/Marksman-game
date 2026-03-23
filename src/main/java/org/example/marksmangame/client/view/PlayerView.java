@@ -2,9 +2,7 @@ package org.example.marksmangame.client.view;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 
 public class PlayerView extends Group {
     public PlayerView(Color color) {
