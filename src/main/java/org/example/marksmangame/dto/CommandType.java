@@ -7,5 +7,7 @@ public enum CommandType {
     RESUME,
     STOP,
     SHOOT,
-    DISCONNECT
+    DISCONNECT,
+    LEADERBOARD_REQUEST,
+    LEADERBOARD_CLOSE
 }
