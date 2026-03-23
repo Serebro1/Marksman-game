@@ -31,7 +31,8 @@ public class GameServer {
 
         while (running) {
             Socket s = serverSocket.accept();
-            ClientHandler handler = new ClientHandler(s, this);
+            Connection connect = new Connection(s);
+            ClientHandler handler = new ClientHandler(connect, this);
             new Thread(handler, "ClientHandler-" + s.getRemoteSocketAddress()).start();
         }
     }

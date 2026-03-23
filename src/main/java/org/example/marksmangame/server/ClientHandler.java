@@ -13,18 +13,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    private final Socket socket;
+    private final Connection connection;
     private final GameServer server;
-
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
 
     private volatile String playerName;
     private volatile boolean closed = false;
 
-
-    public ClientHandler(Socket socket, GameServer server) {
-        this.socket = socket;
+    public ClientHandler(Connection connect, GameServer server) {
+        this.connection = connect;
         this.server = server;
     }
 
@@ -39,41 +35,37 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            out = new ObjectOutputStream(socket.getOutputStream());
-            in = new ObjectInputStream(socket.getInputStream());
             server.registerClient(this);
 
-            while (!socket.isClosed()) {
-                Object obj = in.readObject();
+            while (!connection.isClosed()) {
+                Object obj = connection.read();
                 if (!(obj instanceof CommandDTO cmd)) continue;
                 server.enqueueCommand(new CommandEvent(this, cmd));
             }
 
         } catch (EOFException eof) {
-            if (playerName != null) {
-                server.enqueueCommand(new CommandEvent(
-                        this, new CommandDTO(CommandType.DISCONNECT, playerName))
-                );
-            }
+            handleDisconnect();
         } catch (IOException | ClassNotFoundException ex) {
-            if (playerName != null) {
-                server.enqueueCommand(new CommandEvent(
-                        this, new CommandDTO(CommandType.DISCONNECT, playerName))
-                );
-            }
+            handleDisconnect();
         } finally {
             closeSilently();
         }
     }
 
+    private void handleDisconnect() {
+        if (playerName != null) {
+            server.enqueueCommand(
+                    new CommandEvent(
+                            this,
+                            new CommandDTO(CommandType.DISCONNECT, playerName)
+                    )
+            );
+        }
+    }
+
     public boolean sendState(GameStateDTO state) {
         try {
-            if (out == null || socket == null || socket.isClosed()) return false;
-            synchronized (out) {
-                out.writeObject(state);
-                out.flush();
-                out.reset();
-            }
+            connection.send(state);
             return true;
         } catch (IOException e) {
             return false;
@@ -83,9 +75,8 @@ public class ClientHandler implements Runnable {
     public void closeSilently() {
         if (closed) return;
         closed = true;
-        try { if (in != null) in.close(); } catch (IOException ignored) {}
-        try { if (out != null) out.close(); } catch (IOException ignored) {}
-        try { if (socket != null && !socket.isClosed()) socket.close(); } catch (IOException ignored) {}
+        connection.close();
+        server.removeClient(this);
     }
 
     public void cleanupForcibly() {

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.CommandType;
 import org.example.marksmangame.dto.GameStateDTO;
+import org.example.marksmangame.server.Connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,9 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class GameClient {
-    private final Socket socket;
-    private final ObjectOutputStream out;
-    private final ObjectInputStream in;
+    private final Connection connect;
     private final String playerName;
     private final GameClientView view;
     private volatile GameStateDTO lastState;
@@ -21,16 +20,15 @@ public class GameClient {
     public GameClient(String serverAddress, int port, String playerName, GameClientView view) throws IOException {
         this.playerName = playerName;
         this.view = view;
-        socket = new Socket(serverAddress, port);
-        out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());
+        Socket socket = new Socket(serverAddress, port);
+        connect = new Connection(socket);
     }
 
     public void start() {
         new Thread(() -> {
             try {
                 while (true) {
-                    Object obj = in.readObject();
+                    Object obj = connect.read();
                     if (obj instanceof GameStateDTO) {
                         lastState = (GameStateDTO) obj;
                     } else if (obj == null) {
@@ -43,30 +41,22 @@ public class GameClient {
                         view.connectionRefused("Connection lost")
                 );
             } finally {
-                try { socket.close(); } catch (IOException e) {}
+                connect.close();
             }
         }).start();
     }
 
     public void sendCommand(CommandDTO command) {
         try {
-            out.writeObject(command);
-            out.flush();
-            out.reset();
+            connect.send(command);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void disconnect() {
-        try {
-            sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
-
-            if (out != null) out.close();
-            if (in != null) in.close();
-            if (socket != null && !socket.isClosed()) socket.close();
-
-        } catch (IOException ignored) {}
+        sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
+        if (connect != null && !connect.isClosed()) connect.close();
     }
 
     public GameStateDTO getLastState() {
