@@ -39,6 +39,7 @@ public class GameClientView {
     private final Button shootButton = new Button("Shoot");
     private final Button disconnectButton = new Button("Disconnect");
     private final Button leaderboardButton = new Button("Leaderboard");
+    private final Button historyButton = new Button("History");
 
     private final TextField nameField = new TextField("Player");
 
@@ -68,7 +69,7 @@ public class GameClientView {
         gamePane.getChildren().addAll(zone, guideNear, guideFar);
 
         // панель управления
-        HBox controlBox = new HBox(10, readyButton, pauseButton, shootButton, stopButton, leaderboardButton, disconnectButton);
+        HBox controlBox = new HBox(10, readyButton, pauseButton, shootButton, stopButton, leaderboardButton, historyButton, disconnectButton);
         controlBox.setLayoutX(150);
         controlBox.setLayoutY(555);
         controlBox.setStyle("-fx-background-color: lightgray; -fx-padding: 10; -fx-border-color: black;");
@@ -91,6 +92,7 @@ public class GameClientView {
         shootButton.setOnAction(_ -> sendCommand(CommandType.SHOOT));
         stopButton.setOnAction(_ -> sendCommand(CommandType.STOP));
         leaderboardButton.setOnAction(_ -> sendCommand(CommandType.LEADERBOARD));
+        historyButton.setOnAction(_ -> sendCommand(CommandType.HISTORY));
         disconnectButton.setOnAction(_ -> disconnect());
 
 
@@ -284,6 +286,41 @@ public class GameClientView {
             Stage stage = new Stage();
             stage.setTitle("Leaderboard");
             stage.setScene(new Scene(new VBox(table), 300, 400));
+            stage.show();
+        });
+    }
+
+    public void showHistory(GameHistoryDTO dto) {
+
+        TableView<GameHistoryEntryDTO> table = new TableView<>();
+
+        TableColumn<GameHistoryEntryDTO, String> nameCol =
+                new TableColumn<>("Игра");
+        nameCol.setCellValueFactory(c ->
+                new SimpleStringProperty(c.getValue().gameName()));
+
+        TableColumn<GameHistoryEntryDTO, String> winnerCol =
+                new TableColumn<>("Победитель");
+        winnerCol.setCellValueFactory(c ->
+                new SimpleStringProperty(c.getValue().winner()));
+
+        TableColumn<GameHistoryEntryDTO, String> startCol =
+                new TableColumn<>("Начало");
+        startCol.setCellValueFactory(c ->
+                new SimpleStringProperty(c.getValue().startedAt().toString()));
+
+        TableColumn<GameHistoryEntryDTO, String> endCol =
+                new TableColumn<>("Конец");
+        endCol.setCellValueFactory(c ->
+                new SimpleStringProperty(c.getValue().finishedAt().toString()));
+
+        table.getColumns().addAll(nameCol, winnerCol, startCol, endCol);
+        table.getItems().setAll(dto.games());
+
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            stage.setTitle("Game History");
+            stage.setScene(new Scene(new VBox(table), 500, 400));
             stage.show();
         });
     }

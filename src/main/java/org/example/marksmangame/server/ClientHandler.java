@@ -1,9 +1,6 @@
 package org.example.marksmangame.server;
 
-import org.example.marksmangame.dto.CommandDTO;
-import org.example.marksmangame.dto.CommandType;
-import org.example.marksmangame.dto.GameStateDTO;
-import org.example.marksmangame.dto.LeaderboardDTO;
+import org.example.marksmangame.dto.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -71,6 +68,15 @@ public class ClientHandler implements Runnable {
     public boolean sendLeaderboard(LeaderboardDTO leaderboard) {
         try {
             connection.send(leaderboard);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public boolean sendHistory(GameHistoryDTO history) {
+        try {
+            connection.send(history);
             return true;
         } catch (IOException e) {
             return false;

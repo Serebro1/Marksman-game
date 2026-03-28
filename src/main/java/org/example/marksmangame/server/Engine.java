@@ -176,7 +176,9 @@ public class Engine {
     }
 
     public  GameState getState() { return state; }
-
+    public List<Player> getPlayers() {
+        return players;
+    }
     private Optional<Player> findPlayer(String name) {
         return players.stream().filter(p -> p.getName().equals(name)).findFirst();
     }

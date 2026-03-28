@@ -19,9 +19,6 @@ public class GameEntity {
     private String winner;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private List<GameRoundEntity> rounds = new ArrayList<>();
-
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<GameResultEntity> results = new ArrayList<>();
 
     public GameEntity() {};
@@ -43,7 +40,6 @@ public class GameEntity {
     public LocalDateTime getFinishedAt() { return finishedAt; }
     public String getWinner() { return winner; }
 
-    public void setRounds(List<GameRoundEntity> rounds) { this.rounds = rounds; }
     public void setResults(List<GameResultEntity> results) { this.results = results; }
     public void addResult(GameResultEntity result) {
         if (results != null) {

@@ -30,6 +30,7 @@ public class GameLoop implements Runnable {
                 String winner = engine.consumeWinnerName();
                 if (winner != null) {
                     service.recordWin(winner);
+                    service.finishGame(engine, winner);
                 }
             }
 
@@ -65,6 +66,7 @@ public class GameLoop implements Runnable {
                     engine.setPlayerReady(cmd.playerName(), true);
                     if (engine.allPlayersReady() && (engine.getState() == GameState.WAITING || engine.getState() == GameState.FINISHED)) {
                         engine.start();
+                        service.startGame(generateGameName());
                     } else if (engine.getState() == GameState.PAUSED && engine.allPlayersReady()) {
                         engine.resume();
                     }
@@ -97,7 +99,20 @@ public class GameLoop implements Runnable {
                     client.sendLeaderboard(service.getLeaderboard(10));
                     server.broadcast(engine.getCurrentState());
                 }
+                case HISTORY -> {
+                    if (engine.getState() == GameState.RUNNING) {
+                        engine.pause(cmd.playerName());
+                    }
+
+                    client.sendHistory(service.getHistory(10));
+
+                    server.broadcast(engine.getCurrentState());
+                }
             }
         }
+    }
+
+    private String generateGameName() {
+        return "Game_" + System.currentTimeMillis();
     }
 }
