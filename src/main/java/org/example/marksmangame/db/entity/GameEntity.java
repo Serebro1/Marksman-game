@@ -21,7 +21,7 @@ public class GameEntity {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<GameResultEntity> results = new ArrayList<>();
 
-    public GameEntity() {};
+    public GameEntity() {}
 
     public GameEntity(String gameName) {
         this.gameName = gameName;

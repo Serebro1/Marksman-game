@@ -36,8 +36,6 @@ public class ClientHandler implements Runnable {
                 server.enqueueCommand(new CommandEvent(this, cmd));
             }
 
-        } catch (EOFException eof) {
-            handleDisconnect();
         } catch (IOException | ClassNotFoundException ex) {
             handleDisconnect();
         } finally {
