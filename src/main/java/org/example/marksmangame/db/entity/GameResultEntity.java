@@ -14,7 +14,7 @@ public class GameResultEntity {
     private int score;
     private int shots;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     private GameEntity game;
 
@@ -27,10 +27,8 @@ public class GameResultEntity {
     }
 
     public String getPlayerName() { return playerName; }
-
     public int getScore() { return score; }
-
     public int getShots() { return shots; }
-
     public GameEntity getGame() { return game; }
+    public void setGame(GameEntity game) { this.game = game; }
 }

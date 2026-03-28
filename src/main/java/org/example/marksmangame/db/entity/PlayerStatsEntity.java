@@ -18,16 +18,15 @@ public class PlayerStatsEntity implements Serializable {
     private String username;
 
     @Column(nullable = false)
-    private int wins = 0;
+    private int wins;
 
     public PlayerStatsEntity() {}
-
     public PlayerStatsEntity(String username) {
         this.username = username;
+        this.wins = 0;
     }
+    public void addWin() { wins++; }
 
     public String getUsername() { return username; }
     public int getWins() { return wins; }
-
-    public void addWin() { wins++; }
 }

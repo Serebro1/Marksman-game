@@ -7,21 +7,18 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class PlayerStatsDao {
+public class PlayerStatsDAO {
     public void ensureExists(String username) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
-
             PlayerStatsEntity entity = session
                     .createSelectionQuery("from PlayerStatsEntity where username = :u", PlayerStatsEntity.class)
                     .setParameter("u", username)
                     .uniqueResult();
-
             if (entity == null) {
+                Transaction tx = session.beginTransaction();
                 session.persist(new PlayerStatsEntity(username));
+                tx.commit();
             }
-
-            tx.commit();
         }
     }
 

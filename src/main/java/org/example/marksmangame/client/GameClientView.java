@@ -1,6 +1,7 @@
 package org.example.marksmangame.client;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
@@ -279,10 +280,12 @@ public class GameClientView {
         table.getColumns().addAll(List.of(nameCol, winsCol));
         table.getItems().setAll(dto.entries());
 
-        Stage stage = new Stage();
-        stage.setTitle("Leaderboard");
-        stage.setScene(new Scene(new VBox(table), 300, 400));
-        stage.showAndWait();
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            stage.setTitle("Leaderboard");
+            stage.setScene(new Scene(new VBox(table), 300, 400));
+            stage.show();
+        });
     }
 
     public void connectionRefused(String message) {
