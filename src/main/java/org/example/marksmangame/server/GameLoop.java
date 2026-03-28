@@ -10,7 +10,7 @@ public class GameLoop implements Runnable {
     private final GameServer server;
     private final Engine engine;
     private final GameService service;
-    private volatile boolean running = true;
+    private final boolean running = true;
 
     public GameLoop(GameServer server, Engine engine, GameService service) {
         this.server = server;

@@ -1,5 +1,6 @@
 package org.example.marksmangame.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,5 +10,6 @@ public record GameHistoryEntryDTO(
         LocalDateTime startedAt,
         LocalDateTime finishedAt
 ) implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 }

@@ -38,14 +38,4 @@ public class GameDAO {
                     .getResultList();
         }
     }
-
-    public List<GameResultEntity> getResultsForGame(GameEntity game) {
-        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.createSelectionQuery(
-                            "from GameResultEntity r where r.game.id = :gameId order by r.score desc",
-                            GameResultEntity.class)
-                    .setParameter("gameId", game.getId())
-                    .getResultList();
-        }
-    }
 }

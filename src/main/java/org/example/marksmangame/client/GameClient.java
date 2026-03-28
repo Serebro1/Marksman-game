@@ -23,17 +23,24 @@ public class GameClient {
     public void start() {
         new Thread(() -> {
             try {
+                label:
                 while (true) {
                     Object obj = connect.read();
-                    if (obj instanceof GameStateDTO state) {
-                        lastState = state;
-                    } else if (obj instanceof LeaderboardDTO leaderboard) {
-                        Platform.runLater(() -> view.showLeaderboard(leaderboard));
-                    } else if (obj instanceof GameHistoryDTO history) {
-                        Platform.runLater(() -> view.showHistory(history));
-                    }else if (obj == null) {
-                        Platform.runLater(() -> view.connectionRefused("Name already taken or server not waiting"));
-                        break;
+                    switch (obj) {
+                        case GameStateDTO state:
+                            lastState = state;
+                            break;
+                        case LeaderboardDTO leaderboard:
+                            Platform.runLater(() -> view.showLeaderboard(leaderboard));
+                            break;
+                        case GameHistoryDTO history:
+                            Platform.runLater(() -> view.showHistory(history));
+                            break;
+                        case null:
+                            Platform.runLater(() -> view.connectionRefused("Name already taken or server not waiting"));
+                            break label;
+                        default:
+                            break;
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
@@ -56,7 +63,7 @@ public class GameClient {
 
     public void disconnect() {
         sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
-        if (connect != null && !connect.isClosed()) connect.close();
+        if (!connect.isClosed()) connect.close();
     }
 
     public GameStateDTO getLastState() {

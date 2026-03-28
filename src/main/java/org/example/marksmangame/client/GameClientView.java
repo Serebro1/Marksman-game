@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -314,7 +313,7 @@ public class GameClientView {
         endCol.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().finishedAt().toString()));
 
-        table.getColumns().addAll(nameCol, winnerCol, startCol, endCol);
+        table.getColumns().addAll(List.of(nameCol, winnerCol, startCol, endCol));
         table.getItems().setAll(dto.games());
 
         Platform.runLater(() -> {
