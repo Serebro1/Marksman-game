@@ -8,52 +8,29 @@ public class GameResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
     private String playerName;
+
     private int score;
     private int shots;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private GameEntity game;
 
     public GameResultEntity() {}
-    public GameResultEntity(String player, int score, int shots, GameEntity game) {
+    public GameResultEntity(String playerName, int score, int shots, GameEntity game) {
         this.playerName = playerName;
         this.score = score;
         this.shots = shots;
         this.game = game;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
+    public String getPlayerName() { return playerName; }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
+    public int getScore() { return score; }
 
-    public int getScore() {
-        return score;
-    }
+    public int getShots() { return shots; }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getShots() {
-        return shots;
-    }
-
-    public void setShots(int shots) {
-        this.shots = shots;
-    }
-
-    public GameEntity getGame() {
-        return game;
-    }
-
-    public void setGame(GameEntity game) {
-        this.game = game;
-    }
+    public GameEntity getGame() { return game; }
 }

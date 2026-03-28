@@ -18,7 +18,6 @@
         <property name="hibernate.format_sql">true</property>
 
         <property name="hibernate.connection.pool_size">5</property>
-        <mapping class="db.entity.PlayerStatsEntity"/>
 
     </session-factory>
 </hibernate-configuration>

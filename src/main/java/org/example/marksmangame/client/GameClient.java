@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.CommandType;
 import org.example.marksmangame.dto.GameStateDTO;
+import org.example.marksmangame.dto.LeaderboardDTO;
 import org.example.marksmangame.server.Connection;
 
 import java.io.IOException;
@@ -27,8 +28,10 @@ public class GameClient {
             try {
                 while (true) {
                     Object obj = connect.read();
-                    if (obj instanceof GameStateDTO) {
-                        lastState = (GameStateDTO) obj;
+                    if (obj instanceof GameStateDTO state) {
+                        lastState = state;
+                    } else if (obj instanceof LeaderboardDTO leaderboard) {
+                        Platform.runLater(() -> view.showLeaderboard(leaderboard));
                     } else if (obj == null) {
                         Platform.runLater(() -> view.connectionRefused("Name already taken or server not waiting"));
                         break;

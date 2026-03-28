@@ -8,6 +8,5 @@ public enum CommandType {
     STOP,
     SHOOT,
     DISCONNECT,
-    LEADERBOARD_REQUEST,
-    LEADERBOARD_CLOSE
+    LEADERBOARD
 }

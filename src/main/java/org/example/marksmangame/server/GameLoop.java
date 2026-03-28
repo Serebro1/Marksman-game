@@ -1,18 +1,21 @@
 package org.example.marksmangame.server;
 
+import org.example.marksmangame.db.GameService;
 import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.dto.GameStateDTO;
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.model.Player;
 
 public class GameLoop implements Runnable {
-    private final Engine engine;
     private final GameServer server;
+    private final Engine engine;
+    private final GameService service;
     private volatile boolean running = true;
 
-    public GameLoop(Engine engine, GameServer server) {
-        this.engine = engine;
+    public GameLoop(GameServer server, Engine engine, GameService service) {
         this.server = server;
+        this.engine = engine;
+        this.service = service;
     }
 
     @Override
@@ -24,6 +27,10 @@ public class GameLoop implements Runnable {
 
             if (engine.getState() == GameState.RUNNING) {
                 engine.update();
+                String winner = engine.consumeWinnerName();
+                if (winner != null) {
+                    service.recordWin(winner);
+                }
             }
 
             GameStateDTO state = engine.getCurrentState();
@@ -50,6 +57,7 @@ public class GameLoop implements Runnable {
                         client.sendState(null);
                     } else {
                         client.setPlayerName(p.getName());
+                        service.registerPlayer(p.getName());
                         server.broadcast(engine.getCurrentState());
                     }
                 }
@@ -80,6 +88,13 @@ public class GameLoop implements Runnable {
                 case DISCONNECT -> {
                     engine.removePlayerByName(cmd.playerName());
                     server.removeClient(client);
+                    server.broadcast(engine.getCurrentState());
+                }
+                case LEADERBOARD -> {
+                    if (engine.getState() == GameState.RUNNING) {
+                        engine.pause(cmd.playerName());
+                    }
+                    client.sendLeaderboard(service.getLeaderboard(10));
                     server.broadcast(engine.getCurrentState());
                 }
             }

@@ -180,4 +180,10 @@ public class Engine {
     private Optional<Player> findPlayer(String name) {
         return players.stream().filter(p -> p.getName().equals(name)).findFirst();
     }
+
+    public String consumeWinnerName() {
+        String w = winnerName;
+        winnerName = null;
+        return w;
+    }
 }

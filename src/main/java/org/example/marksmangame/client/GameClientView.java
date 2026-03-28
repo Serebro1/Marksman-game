@@ -1,21 +1,23 @@
 package org.example.marksmangame.client;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import org.example.marksmangame.client.view.ArrowView;
 import org.example.marksmangame.client.view.PlayerView;
 import org.example.marksmangame.client.view.TargetView;
 import org.example.marksmangame.dto.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class GameClientView {
     private final double WIDTH = 2000;
@@ -28,12 +30,15 @@ public class GameClientView {
     private final Pane objectsLayer = new Pane();
     private final ListView<String> playersListView = new ListView<>();
     private final Label statusLabel = new Label("Status: Disconnected");
+
     private final Button connectButton = new Button("Connect");
     private final Button readyButton = new Button("Ready");
     private final Button pauseButton = new Button("Pause");
     private final Button stopButton = new Button("Stop");
     private final Button shootButton = new Button("Shoot");
     private final Button disconnectButton = new Button("Disconnect");
+    private final Button leaderboardButton = new Button("Leaderboard");
+
     private final TextField nameField = new TextField("Player");
 
     private GameClient client;
@@ -62,7 +67,7 @@ public class GameClientView {
         gamePane.getChildren().addAll(zone, guideNear, guideFar);
 
         // панель управления
-        HBox controlBox = new HBox(10, readyButton, pauseButton, shootButton, stopButton, disconnectButton);
+        HBox controlBox = new HBox(10, readyButton, pauseButton, shootButton, stopButton, leaderboardButton, disconnectButton);
         controlBox.setLayoutX(150);
         controlBox.setLayoutY(555);
         controlBox.setStyle("-fx-background-color: lightgray; -fx-padding: 10; -fx-border-color: black;");
@@ -84,7 +89,9 @@ public class GameClientView {
         pauseButton.setOnAction(_ -> sendCommand(CommandType.PAUSE));
         shootButton.setOnAction(_ -> sendCommand(CommandType.SHOOT));
         stopButton.setOnAction(_ -> sendCommand(CommandType.STOP));
+        leaderboardButton.setOnAction(_ -> sendCommand(CommandType.LEADERBOARD));
         disconnectButton.setOnAction(_ -> disconnect());
+
 
         setControlsDisabled(true);
     }
@@ -255,6 +262,27 @@ public class GameClientView {
             status += "  Winner: " + state.winnerName();
         }
         statusLabel.setText(status);
+    }
+
+    public void showLeaderboard(LeaderboardDTO dto) {
+
+        TableView<LeaderboardEntryDTO> table = new TableView<>();
+
+        TableColumn<LeaderboardEntryDTO, String> nameCol = new TableColumn<>("Имя");
+        nameCol.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().username()));
+
+        TableColumn<LeaderboardEntryDTO, Integer> winsCol = new TableColumn<>("Победы");
+        winsCol.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().wins()).asObject());
+
+        table.getColumns().addAll(List.of(nameCol, winsCol));
+        table.getItems().setAll(dto.entries());
+
+        Stage stage = new Stage();
+        stage.setTitle("Leaderboard");
+        stage.setScene(new Scene(new VBox(table), 300, 400));
+        stage.showAndWait();
     }
 
     public void connectionRefused(String message) {

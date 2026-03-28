@@ -1,5 +1,6 @@
 package org.example.marksmangame.server;
 
+import org.example.marksmangame.db.GameService;
 import org.example.marksmangame.dto.GameStateDTO;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class GameServer {
     private static final int PORT = 12345;
 
     private final Engine engine = new Engine();
+    private final GameService gameService = new GameService();
 
     private final List<ClientHandler> clients = new CopyOnWriteArrayList<>();
 
@@ -26,7 +28,7 @@ public class GameServer {
         serverSocket = new ServerSocket(PORT);
         System.out.println("Server started on port " + PORT);
 
-        GameLoop loop = new GameLoop(engine, this);
+        GameLoop loop = new GameLoop(this, engine, gameService);
         new Thread(loop, "GameLoop").start();
 
         while (running) {
