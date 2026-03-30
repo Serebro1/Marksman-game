@@ -2,7 +2,7 @@ package org.example.marksmangame.client;
 
 import javafx.application.Platform;
 import org.example.marksmangame.dto.*;
-import org.example.marksmangame.server.Connection;
+import org.example.marksmangame.server.network.Connection;
 
 import java.io.IOException;
 import java.net.Socket;

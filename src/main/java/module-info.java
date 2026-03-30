@@ -11,6 +11,6 @@ module org.example.marksmangame {
     requires org.slf4j;
 
     opens org.example.marksmangame to javafx.fxml;
-    opens org.example.marksmangame.db.entity to org.hibernate.orm.core;
+    opens org.example.marksmangame.server.db.entity to org.hibernate.orm.core;
     exports org.example.marksmangame;
 }
