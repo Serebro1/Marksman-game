@@ -8,6 +8,7 @@ module org.example.marksmangame {
     requires java.sql;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires org.slf4j;
 
     opens org.example.marksmangame to javafx.fxml;
     opens org.example.marksmangame.db.entity to org.hibernate.orm.core;

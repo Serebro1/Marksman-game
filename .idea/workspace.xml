@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="add GameDAO">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/entity/GameRoundEntity.java" afterDir="false" />
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="fix bug with showing History">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/CommandRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ConnectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/DisconnectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/HistoryCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/LeaderboardCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/PauseCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ReadyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ResumeCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ShootCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/StopCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/StatsRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryEntryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryEntryDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,9 +29,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -32,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="feature/hibernate" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +83,7 @@
     "Application.ServerMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/hibernate",
+    "git-widget-placeholder": "refactor/command-pattern",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/SEMYON/UNN/network_app_java/solved/SocketPanel",
     "project.structure.last.edited": "Libraries",
@@ -91,6 +98,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.marksmangame.server.command" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.example.marksmangame" />
     </key>
@@ -306,7 +316,31 @@
       <option name="project" value="LOCAL" />
       <updated>1774708904954</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="complex update">
+      <option name="closed" value="true" />
+      <created>1774861314907</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1774861314907</updated>
+    </task>
+    <task id="LOCAL-00023" summary="use messageDTO interface and refactor methods &quot;send*&quot; in ClientHandler">
+      <option name="closed" value="true" />
+      <created>1774862413694</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1774862413694</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix bug with showing History">
+      <option name="closed" value="true" />
+      <created>1774862428177</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1774862428177</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -342,6 +376,9 @@
     <MESSAGE value="mini update" />
     <MESSAGE value="add game history" />
     <MESSAGE value="add GameDAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="add GameDAO" />
+    <MESSAGE value="complex update" />
+    <MESSAGE value="use messageDTO interface and refactor methods &quot;send*&quot; in ClientHandler" />
+    <MESSAGE value="fix bug with showing History" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug with showing History" />
   </component>
 </project>
