@@ -1,7 +1,6 @@
 package org.example.marksmangame.dto;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 public record TargetDTO(
         int id,
@@ -9,7 +8,7 @@ public record TargetDTO(
         double y,
         double radius,
         boolean active
-) implements Serializable {
+) implements MessageDTO {
     @Serial
     private static final long serialVersionUID = 1L;
 }

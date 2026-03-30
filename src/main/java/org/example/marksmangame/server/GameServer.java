@@ -57,7 +57,7 @@ public class GameServer {
 
     public void broadcast(GameStateDTO state) {
         for (ClientHandler client : clients) {
-            boolean ok = client.sendState(state);
+            boolean ok = client.send(state);
             if (!ok) {
                 client.closeSilently();
                 removeClient(client);

@@ -55,7 +55,7 @@ public class GameLoop implements Runnable {
                 case CONNECT -> {
                     Player p = engine.addPlayer(cmd.playerName());
                     if (p == null) {
-                        client.sendState(null);
+                        client.send(null);
                     } else {
                         client.setPlayerName(p.getName());
                         service.registerPlayer(p.getName());
@@ -96,7 +96,7 @@ public class GameLoop implements Runnable {
                     if (engine.getState() == GameState.RUNNING) {
                         engine.pause(cmd.playerName());
                     }
-                    client.sendLeaderboard(service.getLeaderboard(10));
+                    client.send(service.getLeaderboard(10));
                     server.broadcast(engine.getCurrentState());
                 }
                 case HISTORY -> {
@@ -104,7 +104,7 @@ public class GameLoop implements Runnable {
                         engine.pause(cmd.playerName());
                     }
 
-                    client.sendHistory(service.getHistory(10));
+                    client.send(service.getHistory(10));
 
                     server.broadcast(engine.getCurrentState());
                 }

@@ -53,28 +53,9 @@ public class ClientHandler implements Runnable {
             );
         }
     }
-
-    public boolean sendState(GameStateDTO state) {
+    public boolean send(MessageDTO dto) {
         try {
-            connection.send(state);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    public boolean sendLeaderboard(LeaderboardDTO leaderboard) {
-        try {
-            connection.send(leaderboard);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    public boolean sendHistory(GameHistoryDTO history) {
-        try {
-            connection.send(history);
+            connection.send(dto);
             return true;
         } catch (IOException e) {
             return false;
