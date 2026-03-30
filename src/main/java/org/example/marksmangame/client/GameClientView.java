@@ -17,6 +17,7 @@ import org.example.marksmangame.client.view.PlayerView;
 import org.example.marksmangame.client.view.TargetView;
 import org.example.marksmangame.dto.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GameClientView {
@@ -310,8 +311,11 @@ public class GameClientView {
 
         TableColumn<GameHistoryEntryDTO, String> endCol =
                 new TableColumn<>("Конец");
-        endCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().finishedAt().toString()));
+        endCol.setCellValueFactory(c -> {
+            LocalDateTime finishedAt = c.getValue().finishedAt();
+            String value = (finishedAt != null) ? finishedAt.toString() : "Не завершена";
+            return new SimpleStringProperty(value);
+        });
 
         table.getColumns().addAll(List.of(nameCol, winnerCol, startCol, endCol));
         table.getItems().setAll(dto.games());
