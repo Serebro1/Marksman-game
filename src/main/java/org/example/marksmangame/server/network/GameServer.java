@@ -15,8 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameServer {
     private static final int PORT = 12345;
 
-    private final Engine engine = new Engine();
-    private final GameService gameService = new GameService();
+    private final GameContext context = new GameContext(new Engine(), new GameService(), this);
 
     private final List<ClientHandler> clients = new CopyOnWriteArrayList<>();
 
@@ -29,7 +28,7 @@ public class GameServer {
         serverSocket = new ServerSocket(PORT);
         System.out.println("Server started on port " + PORT);
 
-        GameLoop loop = new GameLoop(this, engine, gameService);
+        GameLoop loop = new GameLoop(context);
         new Thread(loop, "GameLoop").start();
 
         while (running) {
@@ -64,7 +63,7 @@ public class GameServer {
                 removeClient(client);
                 String name = client.getPlayerName();
                 if (name != null) {
-                    engine.removePlayerByName(name);
+                    context.engine().removePlayerByName(name);
                 }
             }
         }

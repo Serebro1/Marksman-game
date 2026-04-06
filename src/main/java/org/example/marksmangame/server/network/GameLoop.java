@@ -1,9 +1,7 @@
 package org.example.marksmangame.server.network;
 
-import org.example.marksmangame.server.db.GameService;
 import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.dto.CommandDTO;
-import org.example.marksmangame.server.game.Engine;
 import org.example.marksmangame.server.network.command.Command;
 import org.example.marksmangame.server.network.command.CommandRegistry;
 import org.slf4j.Logger;
@@ -12,19 +10,13 @@ import org.slf4j.LoggerFactory;
 public class GameLoop implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(GameLoop.class);
 
-    private final GameServer server;
-    private final Engine engine;
-    private final GameService service;
     private final CommandRegistry commandRegistry;
     private final GameContext context;
     private final boolean running = true;
 
-    public GameLoop(GameServer server, Engine engine, GameService service) {
-        this.server = server;
-        this.engine = engine;
-        this.service = service;
+    public GameLoop(GameContext context) {
         this.commandRegistry = new CommandRegistry();
-        this.context = new GameContext(engine, service, server);
+        this.context = context;
     }
 
     @Override
@@ -34,16 +26,16 @@ public class GameLoop implements Runnable {
         while (running) {
             processCommands();
 
-            if (engine.getState() == GameState.RUNNING) {
-                engine.update();
-                String winner = engine.consumeWinnerName();
+            if (context.engine().getState() == GameState.RUNNING) {
+                context.engine().update();
+                String winner = context.engine().consumeWinnerName();
                 if (winner != null) {
-                    service.recordWin(winner);
-                    service.finishGame(engine, winner);
+                    context.service().recordWin(winner);
+                    context.service().finishGame(context.engine(), winner);
                 }
             }
 
-            server.broadcast(engine.getCurrentState());
+            context.server().broadcast(context.engine().getCurrentState());
 
             try {
                 Thread.sleep(TICK_MS);
@@ -55,7 +47,7 @@ public class GameLoop implements Runnable {
 
     private void processCommands() {
         CommandEvent ev;
-        while ((ev = server.pollCommand()) != null) {
+        while ((ev = context.server().pollCommand()) != null) {
             ClientHandler client = ev.client;
             CommandDTO cmd = ev.command;
             Command command = commandRegistry.getCommand(cmd.type());
