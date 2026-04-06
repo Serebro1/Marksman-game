@@ -4,44 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="delete unnecessary class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/GameMechanics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/GameStateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/GameStateDTOFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/PlayerManager.java" afterDir="false" />
+    <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="take out leaderboard and history in separate views">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/HibernateSessionFactoryUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/HibernateSessionFactoryUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/dao/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/dao/GameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/dao/PlayerStatsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/dao/PlayerStatsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/entity/GameEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/entity/GameEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/entity/GameResultEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/entity/GameResultEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/db/entity/PlayerStatsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/db/entity/PlayerStatsEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/model/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/Target.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/model/Target.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/model/TargetType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/model/TargetType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/CommandEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/CommandEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/game/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/GameServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/CommandRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/CommandRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ConnectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ConnectCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/DisconnectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/DisconnectCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/HistoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/HistoryCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/LeaderboardCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/LeaderboardCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/PauseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/PauseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ReadyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ReadyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ResumeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ResumeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/ShootCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ShootCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/command/StopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/StopCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/hibernate" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -106,7 +70,7 @@
     "Application.ServerMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "refactor/client-view",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/SEMYON/UNN/network_app_java/solved/SocketPanel",
     "project.structure.last.edited": "Libraries",
@@ -128,7 +92,7 @@
       <recent name="org.example.marksmangame" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerMain">
+  <component name="RunManager" selected="Application.ClientMain">
     <configuration name="ClientMain (1)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.marksmangame.ClientMain" />
       <module name="MarksmanGame" />
@@ -371,7 +335,31 @@
       <option name="project" value="LOCAL" />
       <updated>1774869306847</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="change project structure + separate Engine's code in new 4 classes">
+      <option name="closed" value="true" />
+      <created>1774874362166</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1774874362166</updated>
+    </task>
+    <task id="LOCAL-00027" summary="use GameContext">
+      <option name="closed" value="true" />
+      <created>1775494664541</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1775494664542</updated>
+    </task>
+    <task id="LOCAL-00028" summary="take out leaderboard and history in separate views">
+      <option name="closed" value="true" />
+      <created>1775494731409</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1775494731409</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -386,9 +374,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initialize project" />
-    <MESSAGE value="Model implementation" />
-    <MESSAGE value="Controllers implementation" />
     <MESSAGE value="View implementation" />
     <MESSAGE value="View implementation (add player)" />
     <MESSAGE value="Game version v1.0" />
@@ -411,6 +396,9 @@
     <MESSAGE value="use messageDTO interface and refactor methods &quot;send*&quot; in ClientHandler" />
     <MESSAGE value="fix bug with showing History" />
     <MESSAGE value="delete unnecessary class" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete unnecessary class" />
+    <MESSAGE value="change project structure + separate Engine's code in new 4 classes" />
+    <MESSAGE value="use GameContext" />
+    <MESSAGE value="take out leaderboard and history in separate views" />
+    <option name="LAST_COMMIT_MESSAGE" value="take out leaderboard and history in separate views" />
   </component>
 </project>
