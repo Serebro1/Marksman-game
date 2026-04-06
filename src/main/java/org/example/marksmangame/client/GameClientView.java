@@ -12,9 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.example.marksmangame.client.view.ArrowView;
-import org.example.marksmangame.client.view.PlayerView;
-import org.example.marksmangame.client.view.TargetView;
+import org.example.marksmangame.client.view.*;
 import org.example.marksmangame.dto.*;
 
 import java.time.LocalDateTime;
@@ -50,7 +48,8 @@ public class GameClientView {
     private final Map<Integer, TargetView> targetViews = new HashMap<>();
     private final Map<Integer, ArrowView> arrowViews = new HashMap<>();
     private final Map<Integer, PlayerView> playerViews = new HashMap<>();
-
+    private LeaderboardView leaderboardView;
+    private HistoryView historyView;
 
     public GameClientView() { setupUI(); }
 
@@ -268,63 +267,20 @@ public class GameClientView {
     }
 
     public void showLeaderboard(LeaderboardDTO dto) {
-
-        TableView<LeaderboardEntryDTO> table = new TableView<>();
-
-        TableColumn<LeaderboardEntryDTO, String> nameCol = new TableColumn<>("Имя");
-        nameCol.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().username()));
-
-        TableColumn<LeaderboardEntryDTO, Integer> winsCol = new TableColumn<>("Победы");
-        winsCol.setCellValueFactory(cellData ->
-                new SimpleIntegerProperty(cellData.getValue().wins()).asObject());
-
-        table.getColumns().addAll(List.of(nameCol, winsCol));
-        table.getItems().setAll(dto.entries());
-
         Platform.runLater(() -> {
-            Stage stage = new Stage();
-            stage.setTitle("Leaderboard");
-            stage.setScene(new Scene(new VBox(table), 300, 400));
-            stage.show();
+            if (leaderboardView == null) {
+                leaderboardView = new LeaderboardView();
+            }
+            leaderboardView.show(dto);
         });
     }
 
     public void showHistory(GameHistoryDTO dto) {
-
-        TableView<GameHistoryEntryDTO> table = new TableView<>();
-
-        TableColumn<GameHistoryEntryDTO, String> nameCol =
-                new TableColumn<>("Игра");
-        nameCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().gameName()));
-
-        TableColumn<GameHistoryEntryDTO, String> winnerCol =
-                new TableColumn<>("Победитель");
-        winnerCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().winner()));
-
-        TableColumn<GameHistoryEntryDTO, String> startCol =
-                new TableColumn<>("Начало");
-        startCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().startedAt().toString()));
-
-        TableColumn<GameHistoryEntryDTO, String> endCol =
-                new TableColumn<>("Конец");
-        endCol.setCellValueFactory(c -> {
-            LocalDateTime finishedAt = c.getValue().finishedAt();
-            String value = (finishedAt != null) ? finishedAt.toString() : "Не завершена";
-            return new SimpleStringProperty(value);
-        });
-
-        table.getColumns().addAll(List.of(nameCol, winnerCol, startCol, endCol));
-        table.getItems().setAll(dto.games());
-
         Platform.runLater(() -> {
-            Stage stage = new Stage();
-            stage.setTitle("Game History");
-            stage.setScene(new Scene(new VBox(table), 500, 400));
-            stage.show();
+            if (historyView == null) {
+                historyView = new HistoryView();
+            }
+            historyView.show(dto);
         });
     }
 
