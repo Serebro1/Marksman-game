@@ -1,9 +1,11 @@
 package org.example.marksmangame.server.network;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import org.example.marksmangame.dto.*;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.time.LocalDateTime;
 
@@ -38,7 +40,33 @@ public class Connection {
         String line = in.readLine();
         if (line == null) return null;
 
-        return gson.fromJson(line, Message.class);
+        JsonObject obj = JsonParser.parseString(line).getAsJsonObject();
+
+        MessageType type = gson.fromJson(obj.get("type"), MessageType.class);
+        JsonElement payloadJson = obj.get("payload");
+
+        return switch (type) {
+            case GAME_STATE -> new Message<>(
+                    type,
+                    gson.fromJson(payloadJson, GameStateDTO.class)
+            );
+            case HISTORY -> new Message<>(
+                    type,
+                    gson.fromJson(payloadJson, GameHistoryDTO.class)
+            );
+            case LEADERBOARD -> new Message<>(
+                    type,
+                    gson.fromJson(payloadJson, LeaderboardDTO.class)
+            );
+            case ERROR -> new Message<>(
+                    type,
+                    gson.fromJson(payloadJson, ErrorDTO.class)
+            );
+            case COMMAND -> new Message<>(
+                    type,
+                    gson.fromJson(payloadJson, CommandDTO.class)
+            );
+        };
     }
 
     public void close() {

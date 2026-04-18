@@ -38,10 +38,7 @@ public class ClientHandler implements Runnable {
                     continue;
                 }
 
-                CommandDTO cmd = connection.getGson().fromJson(
-                        connection.getGson().toJson(msg.payload()),
-                        CommandDTO.class
-                );
+                CommandDTO cmd = (CommandDTO) msg.payload();
                 server.enqueueCommand(new CommandEvent(this, cmd));
 
             }

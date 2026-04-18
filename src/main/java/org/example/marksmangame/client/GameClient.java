@@ -36,21 +36,21 @@ public class GameClient {
                     switch (msg.type()) {
 
                         case GAME_STATE -> {
-                            lastState = convert(msg.payload(), GameStateDTO.class);
+                            lastState = (GameStateDTO) msg.payload();
                         }
 
                         case LEADERBOARD -> {
-                            LeaderboardDTO dto = convert(msg.payload(), LeaderboardDTO.class);
+                            LeaderboardDTO dto = (LeaderboardDTO) msg.payload();
                             Platform.runLater(() -> view.showLeaderboard(dto));
                         }
 
                         case HISTORY -> {
-                            GameHistoryDTO dto = convert(msg.payload(), GameHistoryDTO.class);
+                            GameHistoryDTO dto = (GameHistoryDTO) msg.payload();
                             Platform.runLater(() -> view.showHistory(dto));
                         }
 
                         case ERROR -> {
-                            ErrorDTO err = convert(msg.payload(), ErrorDTO.class);
+                            ErrorDTO err = (ErrorDTO) msg.payload();
                             Platform.runLater(() ->
                                     view.connectionRefused(err.message()));
                         }
