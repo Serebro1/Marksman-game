@@ -1,6 +1,10 @@
-package org.example.marksmangame.network;
+package org.example.marksmangame.server;
 
 import org.example.marksmangame.dto.*;
+import org.example.marksmangame.network.CommandEvent;
+import org.example.marksmangame.network.Connection;
+import org.example.marksmangame.network.Message;
+import org.example.marksmangame.network.MessageType;
 
 import java.io.IOException;
 
@@ -59,8 +63,12 @@ public class ClientHandler implements Runnable {
             );
         }
     }
-    public void send(MessageType type, Object payload) {
-        connection.send(type, payload);
+    public boolean send(MessageType type, Object payload) {
+        boolean ok = connection.send(type, payload);
+        if (!ok) {
+            closeSilently();
+        }
+        return ok;
     }
 
     public void sendError(String message) {

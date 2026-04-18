@@ -1,7 +1,8 @@
-package org.example.marksmangame.network;
+package org.example.marksmangame.server;
 
 import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.dto.CommandDTO;
+import org.example.marksmangame.network.CommandEvent;
 import org.example.marksmangame.network.command.Command;
 import org.example.marksmangame.network.command.CommandRegistry;
 import org.slf4j.Logger;

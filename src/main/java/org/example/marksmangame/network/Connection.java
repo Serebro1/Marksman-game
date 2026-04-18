@@ -26,12 +26,10 @@ public class Connection {
         );
     }
 
-    public synchronized <T> void send(MessageType type, T payload) {
+    public synchronized <T> boolean send(MessageType type, T payload) {
         Message<T> msg = new Message<>(type, payload);
         out.println(gson.toJson(msg));
-        if (out.checkError()) {
-            throw new RuntimeException("Connection lost");
-        }
+        return !out.checkError();
     }
 
     public Message<?> read() throws IOException {

@@ -1,6 +1,7 @@
 package org.example.marksmangame.network;
 
 import org.example.marksmangame.dto.CommandDTO;
+import org.example.marksmangame.server.ClientHandler;
 
 public class CommandEvent {
 

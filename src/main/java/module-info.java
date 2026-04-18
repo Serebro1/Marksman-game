@@ -15,4 +15,5 @@ module org.example.marksmangame {
     opens org.example.marksmangame.network to com.google.gson;
     opens org.example.marksmangame.dto to com.google.gson;
     exports org.example.marksmangame;
+    opens org.example.marksmangame.server to com.google.gson;
 }

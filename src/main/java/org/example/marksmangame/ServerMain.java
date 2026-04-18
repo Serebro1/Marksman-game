@@ -1,6 +1,6 @@
 package org.example.marksmangame;
 
-import org.example.marksmangame.network.GameServer;
+import org.example.marksmangame.server.GameServer;
 
 import java.io.IOException;
 

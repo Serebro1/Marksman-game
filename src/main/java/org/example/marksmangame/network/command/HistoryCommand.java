@@ -2,8 +2,8 @@ package org.example.marksmangame.network.command;
 
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.GameState;
-import org.example.marksmangame.network.ClientHandler;
-import org.example.marksmangame.network.GameContext;
+import org.example.marksmangame.server.ClientHandler;
+import org.example.marksmangame.server.GameContext;
 import org.example.marksmangame.network.MessageType;
 
 public class HistoryCommand implements org.example.marksmangame.network.command.Command {

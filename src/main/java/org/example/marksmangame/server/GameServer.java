@@ -1,6 +1,7 @@
-package org.example.marksmangame.network;
+package org.example.marksmangame.server;
 
 import org.example.marksmangame.dto.ErrorDTO;
+import org.example.marksmangame.network.*;
 import org.example.marksmangame.server.db.GameService;
 import org.example.marksmangame.dto.GameStateDTO;
 import org.example.marksmangame.server.game.Engine;
@@ -58,18 +59,22 @@ public class GameServer {
 
     public void broadcast(GameStateDTO state) {
         for (ClientHandler client : clients) {
-            try {
-                client.send(MessageType.GAME_STATE, state);
-            } catch (Exception e) {
+            boolean ok = client.send(MessageType.GAME_STATE, state);
+            if (!ok) {
                 client.closeSilently();
+                removeClient(client);
+                String name = client.getPlayerName();
+                if (name != null) {
+                    context.engine().removePlayerByName(name);
+                }
             }
         }
     }
 
     public void sendTo(ClientHandler client, MessageType type, Object payload) {
-        try {
-            client.send(type, payload);
-        } catch (Exception e) {
+        boolean ok = client.send(type, payload);
+
+        if (!ok) {
             client.closeSilently();
         }
     }
