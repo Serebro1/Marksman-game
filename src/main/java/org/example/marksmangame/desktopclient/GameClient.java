@@ -1,4 +1,4 @@
-package org.example.marksmangame.client;
+package org.example.marksmangame.desktopclient;
 
 import javafx.application.Platform;
 import org.example.marksmangame.dto.*;

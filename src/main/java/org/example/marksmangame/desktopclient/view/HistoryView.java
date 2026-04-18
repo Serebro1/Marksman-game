@@ -1,4 +1,4 @@
-package org.example.marksmangame.client.view;
+package org.example.marksmangame.desktopclient.view;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;

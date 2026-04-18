@@ -4,8 +4,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.marksmangame.client.GameClient;
-import org.example.marksmangame.client.GameClientView;
+import org.example.marksmangame.desktopclient.GameClient;
+import org.example.marksmangame.desktopclient.GameClientView;
 
 public class ClientMain extends Application {
     @Override

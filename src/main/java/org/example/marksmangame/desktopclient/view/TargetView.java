@@ -1,4 +1,4 @@
-package org.example.marksmangame.client.view;
+package org.example.marksmangame.desktopclient.view;
 
 import javafx.scene.Group;
 import javafx.scene.effect.GaussianBlur;
