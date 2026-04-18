@@ -25,9 +25,6 @@ public class GameDAO {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
             session.merge(game);
-            for (GameResultEntity result : results) {
-                session.persist(result);
-            }
             tx.commit();
         }
     }
