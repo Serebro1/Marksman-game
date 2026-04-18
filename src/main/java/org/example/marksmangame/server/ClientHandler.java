@@ -82,8 +82,4 @@ public class ClientHandler implements Runnable {
         connection.close();
         server.removeClient(this);
     }
-
-    public void cleanupForcibly() {
-        closeSilently();
-    }
 }

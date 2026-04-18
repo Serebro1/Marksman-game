@@ -13,7 +13,6 @@ public class GameLoop implements Runnable {
 
     private final CommandRegistry commandRegistry;
     private final GameContext context;
-    private final boolean running = true;
 
     public GameLoop(GameContext context) {
         this.commandRegistry = new CommandRegistry();
@@ -24,7 +23,7 @@ public class GameLoop implements Runnable {
     public void run() {
         final int TICK_MS = 16;
 
-        while (running) {
+        while (true) {
             processCommands();
 
             if (context.engine().getState() == GameState.RUNNING) {

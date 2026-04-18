@@ -25,7 +25,6 @@ public class GameClient {
     public void start() {
         new Thread(() -> {
             try {
-                label:
                 while (true) {
                     Message<?> msg = connection.read();
                     if (msg == null) {
@@ -35,9 +34,7 @@ public class GameClient {
                     }
                     switch (msg.type()) {
 
-                        case GAME_STATE -> {
-                            lastState = (GameStateDTO) msg.payload();
-                        }
+                        case GAME_STATE -> lastState = (GameStateDTO) msg.payload();
 
                         case LEADERBOARD -> {
                             LeaderboardDTO dto = (LeaderboardDTO) msg.payload();
@@ -73,12 +70,6 @@ public class GameClient {
     public void disconnect() {
         sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
         if (!connection.isClosed()) connection.close();
-    }
-
-    private <T> T convert(Object payload, Class<T> clazz) {
-        return connection.getGson().fromJson(
-                connection.getGson().toJson(payload), clazz
-        );
     }
 
     public GameStateDTO getLastState() {

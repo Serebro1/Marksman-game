@@ -2,20 +2,15 @@ package org.example.marksmangame.desktopclient;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import org.example.marksmangame.desktopclient.view.*;
 import org.example.marksmangame.dto.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class GameClientView {

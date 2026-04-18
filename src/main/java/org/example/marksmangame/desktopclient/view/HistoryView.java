@@ -61,8 +61,4 @@ public class HistoryView {
             stage.toFront();
         }
     }
-
-    public boolean isShowing() {
-        return stage.isShowing();
-    }
 }
