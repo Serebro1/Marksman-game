@@ -5,7 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47c02264-2cb3-4ea9-95bb-d5b33d95f5ac" name="Changes" comment="take out leaderboard and history in separate views">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/ErrorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/LocalDateTimeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/MessageType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/client/GameClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/ArrowDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/ArrowDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/CommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryEntryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameHistoryEntryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/GameStateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/LeaderboardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/LeaderboardDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/LeaderboardEntryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/LeaderboardEntryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/MessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/MessageDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/PlayerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/PlayerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/TargetDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/dto/TargetDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/GameServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ConnectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/ConnectCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/HistoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/HistoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/LeaderboardCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/marksmangame/server/network/command/LeaderboardCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +39,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Enum" />
         <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -68,9 +91,11 @@
     "Application.HelloApplication.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.ServerMain.executor": "Run",
+    "Maven.MarksmanGame [clean].executor": "Run",
+    "Maven.MarksmanGame [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "refactor/client-view",
+    "git-widget-placeholder": "refactor/DTO-to-GSON",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/SEMYON/UNN/network_app_java/solved/SocketPanel",
     "project.structure.last.edited": "Libraries",

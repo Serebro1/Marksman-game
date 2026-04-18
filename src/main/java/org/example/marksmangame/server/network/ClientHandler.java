@@ -1,5 +1,6 @@
 package org.example.marksmangame.server.network;
 
+import com.google.gson.Gson;
 import org.example.marksmangame.dto.*;
 
 import java.io.IOException;
@@ -30,12 +31,22 @@ public class ClientHandler implements Runnable {
             server.registerClient(this);
 
             while (!connection.isClosed()) {
-                Object obj = connection.read();
-                if (!(obj instanceof CommandDTO cmd)) continue;
+                Message<?> msg = connection.read();
+                if (msg == null) break;
+                if (msg.type() != MessageType.COMMAND) {
+                    server.sendError(this, "Invalid message type");
+                    continue;
+                }
+
+                CommandDTO cmd = connection.getGson().fromJson(
+                        connection.getGson().toJson(msg.payload()),
+                        CommandDTO.class
+                );
                 server.enqueueCommand(new CommandEvent(this, cmd));
+
             }
 
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException ex) {
             handleDisconnect();
         } finally {
             closeSilently();
@@ -52,13 +63,13 @@ public class ClientHandler implements Runnable {
             );
         }
     }
-    public boolean send(MessageDTO dto) {
-        try {
-            connection.send(dto);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+    public void send(MessageType type, Object payload) {
+        connection.send(type, payload);
+    }
+
+    public void sendError(String message) {
+        connection.send(MessageType.ERROR,
+                new ErrorDTO(message, 500));
     }
 
     public void closeSilently() {

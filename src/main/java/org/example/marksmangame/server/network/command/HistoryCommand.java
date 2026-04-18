@@ -4,6 +4,7 @@ import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.GameState;
 import org.example.marksmangame.server.network.ClientHandler;
 import org.example.marksmangame.server.network.GameContext;
+import org.example.marksmangame.server.network.MessageType;
 
 public class HistoryCommand implements Command {
     @Override
@@ -11,6 +12,10 @@ public class HistoryCommand implements Command {
         if (context.engine().getState() == GameState.RUNNING) {
             context.engine().pause(cmd.playerName());
         }
-        client.send(context.service().getHistory(10));
+
+        client.send(
+                MessageType.HISTORY,
+                context.service().getHistory(10)
+        );
     }
 }

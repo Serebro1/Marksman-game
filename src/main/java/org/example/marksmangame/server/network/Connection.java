@@ -1,30 +1,44 @@
 package org.example.marksmangame.server.network;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 public class Connection {
     private final Socket socket;
-    private final ObjectOutputStream out;
-    private final ObjectInputStream in;
+    private final PrintWriter out;
+    private final BufferedReader in;
+    private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
 
-        out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());
+        this.out = new PrintWriter(
+                new OutputStreamWriter(socket.getOutputStream()), true
+        );
+        this.in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream())
+        );
     }
 
-    public synchronized void send(Object obj) throws IOException {
-        out.writeObject(obj);
-        out.flush();
-        out.reset();
+    public synchronized <T> void send(MessageType type, T payload) {
+        Message<T> msg = new Message<>(type, payload);
+        out.println(gson.toJson(msg));
+        if (out.checkError()) {
+            throw new RuntimeException("Connection lost");
+        }
     }
 
-    public Object read() throws IOException, ClassNotFoundException {
-        return in.readObject();
+    public Message<?> read() throws IOException {
+        String line = in.readLine();
+        if (line == null) return null;
+
+        return gson.fromJson(line, Message.class);
     }
 
     public void close() {
@@ -32,7 +46,9 @@ public class Connection {
             socket.close();
         } catch (IOException ignored) {}
     }
-
+    public Gson getGson() {
+        return gson;
+    }
     public boolean isClosed() {
         return socket.isClosed();
     }

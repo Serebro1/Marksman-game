@@ -9,5 +9,6 @@ public enum CommandType {
     SHOOT,
     DISCONNECT,
     LEADERBOARD,
-    HISTORY
+    HISTORY,
+    ERROR
 }

@@ -3,12 +3,14 @@ package org.example.marksmangame.client;
 import javafx.application.Platform;
 import org.example.marksmangame.dto.*;
 import org.example.marksmangame.server.network.Connection;
+import org.example.marksmangame.server.network.Message;
+import org.example.marksmangame.server.network.MessageType;
 
 import java.io.IOException;
 import java.net.Socket;
 
 public class GameClient {
-    private final Connection connect;
+    private final Connection connection;
     private final String playerName;
     private final GameClientView view;
     private volatile GameStateDTO lastState;
@@ -17,7 +19,7 @@ public class GameClient {
         this.playerName = playerName;
         this.view = view;
         Socket socket = new Socket(serverAddress, port);
-        connect = new Connection(socket);
+        connection = new Connection(socket);
     }
 
     public void start() {
@@ -25,45 +27,58 @@ public class GameClient {
             try {
                 label:
                 while (true) {
-                    Object obj = connect.read();
-                    switch (obj) {
-                        case GameStateDTO state:
-                            lastState = state;
-                            break;
-                        case LeaderboardDTO leaderboard:
-                            Platform.runLater(() -> view.showLeaderboard(leaderboard));
-                            break;
-                        case GameHistoryDTO history:
-                            Platform.runLater(() -> view.showHistory(history));
-                            break;
-                        case null:
-                            Platform.runLater(() -> view.connectionRefused("Name already taken or server not waiting"));
-                            break label;
-                        default:
-                            break;
+                    Message<?> msg = connection.read();
+                    if (msg == null) {
+                        Platform.runLater(() ->
+                                view.connectionRefused("Connection closed"));
+                        break;
+                    }
+                    switch (msg.type()) {
+
+                        case GAME_STATE -> {
+                            lastState = convert(msg.payload(), GameStateDTO.class);
+                        }
+
+                        case LEADERBOARD -> {
+                            LeaderboardDTO dto = convert(msg.payload(), LeaderboardDTO.class);
+                            Platform.runLater(() -> view.showLeaderboard(dto));
+                        }
+
+                        case HISTORY -> {
+                            GameHistoryDTO dto = convert(msg.payload(), GameHistoryDTO.class);
+                            Platform.runLater(() -> view.showHistory(dto));
+                        }
+
+                        case ERROR -> {
+                            ErrorDTO err = convert(msg.payload(), ErrorDTO.class);
+                            Platform.runLater(() ->
+                                    view.connectionRefused(err.message()));
+                        }
                     }
                 }
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 Platform.runLater(() ->
                         view.connectionRefused("Connection lost")
                 );
             } finally {
-                connect.close();
+                connection.close();
             }
         }).start();
     }
 
     public void sendCommand(CommandDTO command) {
-        try {
-            connect.send(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        connection.send(MessageType.COMMAND, command);
     }
 
     public void disconnect() {
         sendCommand(new CommandDTO(CommandType.DISCONNECT, playerName));
-        if (!connect.isClosed()) connect.close();
+        if (!connection.isClosed()) connection.close();
+    }
+
+    private <T> T convert(Object payload, Class<T> clazz) {
+        return connection.getGson().fromJson(
+                connection.getGson().toJson(payload), clazz
+        );
     }
 
     public GameStateDTO getLastState() {
