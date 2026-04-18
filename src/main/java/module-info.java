@@ -12,7 +12,7 @@ module org.example.marksmangame {
 
     opens org.example.marksmangame to javafx.fxml;
     opens org.example.marksmangame.server.db.entity to org.hibernate.orm.core;
-    opens org.example.marksmangame.server.network to com.google.gson;
+    opens org.example.marksmangame.network to com.google.gson;
     opens org.example.marksmangame.dto to com.google.gson;
     exports org.example.marksmangame;
 }

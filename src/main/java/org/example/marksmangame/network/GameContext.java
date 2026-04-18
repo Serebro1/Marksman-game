@@ -1,4 +1,4 @@
-package org.example.marksmangame.server.network;
+package org.example.marksmangame.network;
 
 import org.example.marksmangame.server.db.GameService;
 import org.example.marksmangame.server.game.Engine;

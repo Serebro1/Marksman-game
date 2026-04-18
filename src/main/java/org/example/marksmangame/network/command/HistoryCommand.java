@@ -1,12 +1,12 @@
-package org.example.marksmangame.server.network.command;
+package org.example.marksmangame.network.command;
 
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.GameState;
-import org.example.marksmangame.server.network.ClientHandler;
-import org.example.marksmangame.server.network.GameContext;
-import org.example.marksmangame.server.network.MessageType;
+import org.example.marksmangame.network.ClientHandler;
+import org.example.marksmangame.network.GameContext;
+import org.example.marksmangame.network.MessageType;
 
-public class HistoryCommand implements Command {
+public class HistoryCommand implements org.example.marksmangame.network.command.Command {
     @Override
     public void execute(ClientHandler client, CommandDTO cmd, GameContext context) {
         if (context.engine().getState() == GameState.RUNNING) {

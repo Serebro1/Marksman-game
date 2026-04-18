@@ -1,11 +1,9 @@
-package org.example.marksmangame.server.network;
+package org.example.marksmangame.network;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import org.example.marksmangame.dto.*;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.Socket;
 import java.time.LocalDateTime;
 

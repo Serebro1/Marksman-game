@@ -1,4 +1,4 @@
-package org.example.marksmangame.server.network;
+package org.example.marksmangame.network;
 
 public enum MessageType {
     COMMAND,

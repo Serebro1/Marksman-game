@@ -1,4 +1,4 @@
-package org.example.marksmangame.server.network;
+package org.example.marksmangame.network;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

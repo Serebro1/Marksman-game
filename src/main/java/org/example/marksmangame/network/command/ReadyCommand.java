@@ -1,9 +1,9 @@
-package org.example.marksmangame.server.network.command;
+package org.example.marksmangame.network.command;
 
 import org.example.marksmangame.dto.CommandDTO;
 import org.example.marksmangame.dto.GameState;
-import org.example.marksmangame.server.network.ClientHandler;
-import org.example.marksmangame.server.network.GameContext;
+import org.example.marksmangame.network.ClientHandler;
+import org.example.marksmangame.network.GameContext;
 
 
 public class ReadyCommand implements Command {

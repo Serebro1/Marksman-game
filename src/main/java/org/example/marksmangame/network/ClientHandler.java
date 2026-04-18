@@ -1,6 +1,5 @@
-package org.example.marksmangame.server.network;
+package org.example.marksmangame.network;
 
-import com.google.gson.Gson;
 import org.example.marksmangame.dto.*;
 
 import java.io.IOException;

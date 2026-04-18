@@ -1,4 +1,4 @@
-package org.example.marksmangame.server.network.command;
+package org.example.marksmangame.network.command;
 
 import org.example.marksmangame.dto.CommandType;
 
